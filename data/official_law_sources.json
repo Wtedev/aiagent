@@ -1,0 +1,32 @@
+[
+  {
+    "domain": "نظام العمل",
+    "slug": "labor_law",
+    "law_name": "نظام العمل",
+    "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/93e87aa7-f344-4711-b97c-a9a700f1662b/1"
+  },
+  {
+    "domain": "النظام الجزائي",
+    "slug": "criminal_law",
+    "law_name": "نظام الإجراءات الجزائية",
+    "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/8f1b7079-a5f0-425d-b5e0-a9a700f26b2d/1"
+  },
+  {
+    "domain": "النظام التجاري",
+    "slug": "commercial_law",
+    "law_name": "نظام الشركات",
+    "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/93e87aa7-f344-4711-b97c-a9a700f1662b/1"
+  },
+  {
+    "domain": "الأحوال الشخصية",
+    "slug": "personal_status_law",
+    "law_name": "نظام الأحوال الشخصية",
+    "url": "https://laws.moj.gov.sa/ar/legislation/41zDyO33ty4qZnGWAhpbNg"
+  },
+  {
+    "domain": "النظام المدني",
+    "slug": "civil_law",
+    "law_name": "نظام المرافعات الشرعية",
+    "url": "https://laws.moj.gov.sa/ar/legislation/3PpcH7Pox63dH0Jw82s-UA"
+  }
+]
