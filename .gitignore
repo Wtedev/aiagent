@@ -19,3 +19,6 @@ pip-log.txt
 db.sqlite3
 
 .ipynb_checkpoints/
+
+*.faiss
+*.pkl
