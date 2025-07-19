@@ -22,3 +22,4 @@ db.sqlite3
 
 *.faiss
 *.pkl
+data/law_vector_store/*.faiss
