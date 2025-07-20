@@ -1,46 +1,37 @@
+# components/layout.py
+
 import streamlit as st
+from streamlit.components.v1 import html
 
 def render_app():
-    # Inject external CSS
-    with open("Style/custom.css") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    st.set_page_config(page_title="Legal AI Chatbot", layout="centered", initial_sidebar_state="auto")
 
-    # Main UI structure and core components    
-    st.set_page_config(page_title="Law System", layout="wide")
-    st.title("Hello to My Law Swstem")
-    st.markdown("---")
-def render_form():
-    with st.form("respon.form"):
-        user_name = st.text_input("Enter your name", max_chars=32)
-        user_question=st.text_input("Enter Your Question", max_chars=1000)
-        submit=st.form_submit_button("Generate Respone")
-        if submit :
-            if user_name.strip() == ""  or user_question.strip() == ""  :
-                st.warning("Please Fill all the fields")
-            else:
-                st.success("Question sent succesfuly")
-                return user_name, user_question
-    return None, None
+    # Custom CSS for better look
+    st.markdown("""
+        <style>
+        .stChatMessage { padding: 0.5rem 1rem; border-radius: 1rem; margin-bottom: 1rem; }
+        .stChatMessage.user { background-color: #f0f0f5; text-align: right; }
+        .stChatMessage.assistant { background-color: #e7f3ec; text-align: left; }
+        .stTextInput>div>div>input {
+            border-radius: 0.5rem;
+            padding: 0.8rem;
+            font-size: 1rem;
+        }
+        .stButton>button {
+            background-color: #007B83;
+            color: white;
+            border-radius: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+        }
+        .css-18e3th9 { padding-top: 1rem !important; }
+        </style>
+    """, unsafe_allow_html=True)
 
-def render_final_answer(response: str):
-    if response:
-        st.subheader("📜 الإجابة النهائية:")
-        st.markdown("---")
-        with st.chat_message("ai"):
-            st.markdown(response)
-        st.markdown("---")
-
-    # def file_aleart():
-    #     if havefile:
-    #         st.text(st.session_state.fileuse)
-    #     else:
-    #         st.text(st.session_state.fileuse)
-    # havefile = st.checkbox("checkbox", value=True , on_change=file_aleart, key="fileuse")
-    # field = st.selectbox(" choose the field you want", options=("Labor and Employment","E-Commerce","Traffic Regulations","Other"))
-    # st.text_area("Please Enter Your Question", max_chars=1000)
-    # attechments = st.file_uploader("Please Upload the Knowlage Bace", type=["pdf","jpg","png"], accept_multiple_files=True)
-    # responButton = st.button("I'm cute button")
-
-    
+    st.sidebar.title("📚 Legal Support AI")
+    st.sidebar.info("هذا المساعد القانوني يساعدك في فهم الأنظمة السعودية بطريقة واضحة.")
 
 
+def chat_message(role, content):
+    css_class = "user" if role == "user" else "assistant"
+    st.markdown(f'<div class="stChatMessage {css_class}">{content}</div>', unsafe_allow_html=True)
