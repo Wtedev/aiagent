@@ -42,4 +42,4 @@ def get_agents(llm, user_question, law_context):
         allow_delegation=False
     )
 
-    return manager, researcher, writer
+    return manager, researcher, writer 

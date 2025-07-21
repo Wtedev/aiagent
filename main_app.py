@@ -121,7 +121,6 @@ def show_placeholder(title):
 if st.session_state.page == "chat":
     show_placeholder("🧠 الاجابه")
 
-    
 elif st.session_state.page == "virtual":
     show_placeholder("🧠 إصدار حكم افتراضي")
 
