@@ -2,7 +2,7 @@
 
 import os
 from dotenv import load_dotenv
-from app.tasks import create_crew
+from backend.app.tasks import create_crew
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from components import layout

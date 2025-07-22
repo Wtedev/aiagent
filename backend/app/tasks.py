@@ -1,5 +1,5 @@
 from crewai import Task, Crew
-from app.agents import get_agents
+from backend.app.agents import get_agents
 
 def create_crew(llm, user_question, law_context):
     manager, researcher, writer = get_agents(llm, user_question, law_context)

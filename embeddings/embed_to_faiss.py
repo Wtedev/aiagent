@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.docstore.document import Document
-from embeddings.text_splitter import create_splitter  # make sure this module exists
+from text_splitter import create_splitter  # make sure this module exists
 
 # Load environment variables
 load_dotenv()
