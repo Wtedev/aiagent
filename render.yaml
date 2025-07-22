@@ -2,7 +2,6 @@ services:
   - type: web
     name: qanoneed-api
     env: python
-    pythonVersion: 3.10
     plan: free       
     buildCommand: "pip install -r Requirements.txt"
     startCommand: "uvicorn backend.app.main:app --host 0.0.0.0 --port 8080"
