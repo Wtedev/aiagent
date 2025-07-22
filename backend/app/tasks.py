@@ -16,7 +16,7 @@ def create_crew(llm, user_question, law_context):
         expected_output="A list of relevant legal excerpts or summarized principles. If unavailable, provide a fallback summary or general rules.",
         agent=researcher
     )
-
+    
     writing_task = Task(
         description=(
             "Using the output from the researcher and the full context of the legal texts, write a legal consultation in Arabic.\n\n"
@@ -24,6 +24,7 @@ def create_crew(llm, user_question, law_context):
             "- Start with a clear and direct answer to the user's question.\n"
             "- Follow with an explanation using the articles found by the researcher.\n"
             "- If the researcher found general principles, explain them logically and clearly.\n"
+            "add formatting, markdown and bullet points to help the user understad \n"
             "- Always try to be helpful and never reply with just 'no legal basis was found' unless absolutely unavoidable.\n\n"
             f"For reference, the full legal context is available:\n{law_context[:3000]}..."
         ),
@@ -36,6 +37,7 @@ def create_crew(llm, user_question, law_context):
         description=(
             "Review and finalize the legal consultation prepared by the writer. "
             "Ensure it is:\n"
+
             "- Accurate and aligned with Saudi law\n"
             "- Written in clear Arabic\n"
             "- Free of vague or dismissive answers\n"

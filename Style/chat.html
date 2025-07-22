@@ -2,395 +2,289 @@
 <html lang="ar" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>مستشارك القانوني – بوت الاستشارات القانونية</title>
 
-  <!--  ✅  نفس التنسيق والألوان من الصفحة الرئيسية  -->
+
   <style>
-    /* ========== الأساسيات (من index.html كما هى) ========== */
     * {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      box-sizing: border-box
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #0a0a0a;
-      color: #ffffff;
-      overflow-x: hidden;
+      color: #fff;
       direction: rtl;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      min-height: 100vh
     }
 
-    .grid-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      opacity: 0.08;
-      background-image:
-        linear-gradient(rgba(20, 37, 45, 0.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(20, 37, 45, 0.15) 1px, transparent 1px),
-        linear-gradient(rgba(26, 53, 64, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26, 53, 64, 0.08) 1px, transparent 1px);
-      background-size: 60px 60px, 60px 60px, 20px 20px, 20px 20px;
-      animation: gridMove 25s linear infinite, gridPulse 8s ease-in-out infinite;
-    }
-
-    @keyframes gridMove {
-      0% {
-        transform: translate(0, 0);
-      }
-
-      100% {
-        transform: translate(60px, 60px);
-      }
-    }
-
-    @keyframes gridPulse {
-      0%,
-      100% {
-        opacity: 0.08;
-      }
-
-      50% {
-        opacity: 0.12;
-      }
-    }
-
-    .grid-background::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: linear-gradient(45deg, rgba(20, 37, 45, 0.05) 1px, transparent 1px),
-        linear-gradient(-45deg, rgba(20, 37, 45, 0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
-      animation: gridRotate 30s linear infinite reverse;
-    }
-
-    @keyframes gridRotate {
-      0% {
-        transform: rotate(0deg) scale(1);
-      }
-
-      50% {
-        transform: rotate(180deg) scale(1.1);
-      }
-
-      100% {
-        transform: rotate(360deg) scale(1);
-      }
-    }
-
-    .grid-background::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: radial-gradient(circle at center, rgba(20, 37, 45, 0.2) 1px, transparent 1px);
-      background-size: 80px 80px;
-      animation: gridDots 20s ease-in-out infinite;
-    }
-
-    @keyframes gridDots {
-      0%,
-      100% {
-        opacity: 0.3;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 0.6;
-        transform: scale(1.05);
-      }
-    }
-
-    .gradient-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: radial-gradient(circle at 30% 20%, rgba(20, 37, 45, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(26, 53, 64, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(16, 33, 62, 0.15) 0%, transparent 70%);
-    }
-
+    .grid-background,
+    .gradient-overlay,
     .light-beam {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      pointer-events: none;
-      overflow: hidden;
+      z-index: -2
     }
 
-    .light-beam::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(from 0deg, transparent 0deg, rgba(20, 37, 45, 0.15) 45deg, rgba(26, 53, 64, 0.25) 90deg, rgba(20, 37, 45, 0.15) 135deg, transparent 180deg, transparent 360deg);
-      animation: rotateBeam 20s linear infinite;
-      border-radius: 50%;
-    }
-
-    @keyframes rotateBeam {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* ────────── عنوان الصفحة ────────── */
+    /* شريط العنوان */
     .top-bar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, .95);
+      border-bottom: 1px solid rgba(255, 255, 255, .05);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      z-index: 1000;
+      z-index: 1000
     }
+
     .top-title {
       font-size: 1.4rem;
       font-weight: 700;
-      color: #1a3540;
+      color: #1a3540
     }
+
     .back-btn {
       background: linear-gradient(135deg, #14252d, #1a3540);
-      color: #ffffff;
-      padding: 0.5rem 1.2rem;
+      color: #fff;
+      padding: .5rem 1.2rem;
       border-radius: 6px;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: .9rem;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: .3s
     }
+
     .back-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(20, 37, 45, 0.3);
+      box-shadow: 0 4px 12px rgba(20, 37, 45, .3)
     }
-    /* ========== منطقة الشات ========== */
+
+    /* منطقة الشات */
     .chat-section {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      padding: 2rem
     }
 
     .chat-container {
       width: 100%;
       max-width: 1000px;
-      background: rgba(0, 0, 0, 0.4);
-      border: 4px solid rgba(255, 255, 255, 0.07); /* حد أعرض */
+      height: 70vh;
+      padding: 2rem;
+      background: rgba(0, 0, 0, .4);
+      border: 4px solid rgba(255, 255, 255, .07);
       border-radius: 12px;
       backdrop-filter: blur(12px);
-      padding: 2rem;
       display: flex;
-      flex-direction: column;
-      height: 70vh;
+      flex-direction: column
     }
 
     .chat-log {
       flex: 1;
       overflow-y: auto;
       margin-bottom: 1rem;
-      padding-right: 0.5rem;
+      padding-right: .5rem
     }
 
     .message {
-      margin-bottom: 1rem;
       display: flex;
-      gap: 0.5rem;
+      gap: .5rem;
+      margin-bottom: 1rem
     }
 
-    .message.user {
-      justify-content: flex-start; /* المستخدم يمين */
+    .user {
+      justify-content: flex-start
     }
-    .message.bot {
-      justify-content: flex-end; /* المستخدم يمين */
+
+    .bot {
+      justify-content: flex-end
     }
 
     .bubble {
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
       max-width: 70%;
-      line-height: 1.5;
-      font-size: 0.95rem;
+      padding: .6rem 1rem;
+      border-radius: 8px;
+      font-size: .95rem;
+      line-height: 1.7
     }
 
-    .message.user .bubble {
+    .user .bubble {
       background: linear-gradient(135deg, #14252d, #1a3540);
-      color: #fff;
+      color: #fff
     }
 
-    .message.bot .bubble {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+    .bot .bubble {
+      background: rgba(255, 255, 255, .08);
+      color: #e8e8ff;
+      white-space: normal
+    }
+
+    /* Markdown جمالى */
+    .bot .bubble h2,
+    .bot .bubble h3 {
+      margin: .4em 0 .2em;
+      font-size: 1.05rem;
+      color: #6fa8dc
+    }
+
+    .bot .bubble ul {
+      margin: .3em 0;
+      padding-right: 1.2em
+    }
+
+    .bot .bubble li {
+      margin-bottom: .25em
     }
 
     .chat-input {
       display: flex;
-      gap: 1rem;
+      gap: 1rem
     }
 
     .chat-input input {
       flex: 1;
-      padding: 0.8rem 1rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: .8rem 1rem;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
       border-radius: 8px;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: .95rem
     }
 
     .chat-input button {
       background: linear-gradient(135deg, #14252d, #1a3540);
       color: #fff;
-      padding: 0.8rem 1.5rem;
+      padding: .8rem 1.5rem;
       border: none;
       border-radius: 8px;
-      font-size: 0.95rem;
+      font-size: .95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: .3s
     }
 
     .chat-input button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(20, 37, 45, 0.3);
+      box-shadow: 0 4px 12px rgba(20, 37, 45, .3)
     }
 
-    /* Responsive tweaks */
-    @media (max-width:768px) {
+    @media(max-width:768px) {
       .chat-container {
         height: 75vh;
-        padding: 1.2rem;
+        padding: 1.2rem
       }
 
       .chat-input button {
-        padding: 0.6rem 1.2rem;
+        padding: .6rem 1.2rem
       }
     }
   </style>
+
+  <!-- مكتبة Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
-  <!-- الخلفيات الحركية كما هي -->
+  <!-- الخلفيات -->
   <div class="grid-background"></div>
   <div class="gradient-overlay"></div>
   <div class="light-beam"></div>
 
-  <!-- شريط العنوان والزر -->
+  <!-- شريط العنوان -->
   <div class="top-bar">
     <span class="top-title">مستشارك القانوني</span>
-    <a href="index.html" class="back-btn">العودة إلى الصفحة الرئيسية</a>
+    <a class="back-btn" href="index.html">العودة إلى الصفحة الرئيسية</a>
   </div>
 
-  <!-- منطقة الشات -->
+  <!-- الشات -->
   <section class="chat-section">
     <div class="chat-container">
       <div id="chatLog" class="chat-log"></div>
 
       <form id="chatForm" class="chat-input" onsubmit="sendMessage(event)">
-        <input id="userInput" type="text" placeholder="اكتب استشارتك القانونية هنا…" autocomplete="off" required>
+        <input id="userInput" type="text" placeholder="اكتب استشارتك القانونية هنا…" autocomplete="off" required />
         <button type="submit">إرسال</button>
       </form>
     </div>
   </section>
 
-  <!--  تذييل بسيط -->
-  <footer class="footer">
-    <div class="footer-content" style="text-align:center; padding:1rem 0; opacity:0.7; font-size:0.85rem;">
-      © 2025 قانونيد – جميع الحقوق محفوظة.
-    </div>
+  <footer style="text-align:center;padding:1rem 0;opacity:.7;font-size:.85rem">
+    © 2025 قانونيد – جميع الحقوق محفوظة.
   </footer>
 
-  <!--  سكربت بسيط للمحادثة (واجهة فقط)  -->
+  <!-- سكربت الدردشة -->
   <script>
-    // إضافة رسالة إلى سجلّ الدردشة
-    function appendMessage(role, text) {
-      const log = document.getElementById('chatLog');
-      const msg = document.createElement('div');
-      msg.className = 'message ' + role;   // 'user' أو 'bot'
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble';
-      bubble.textContent = text;
+    const API_BASE = ""; 
+
+    /* إضافة رسالة إلى الـ log */
+    function appendMessage(role, content) {
+      const log = document.getElementById("chatLog");
+      const msg = document.createElement("div");
+      msg.className = "message " + role;
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+
+      if (role === "bot") {
+        bubble.innerHTML = marked.parse(cleanText(content));
+      } else {
+        bubble.textContent = content;
+      }
+
       msg.appendChild(bubble);
       log.appendChild(msg);
-      log.scrollTop = log.scrollHeight;    // تمرير لآخر الرسائل
+      log.scrollTop = log.scrollHeight;
     }
 
-    // معالجة الإرسال
+    /* تنظيف: فقط إزالة ``` */
+    const cleanText = txt => txt.replaceAll("```", "").trim();
+
+    const updateLastBotBubble = md => {
+      const bubbles = document.querySelectorAll(".message.bot .bubble");
+      bubbles[bubbles.length - 1].innerHTML = marked.parse(cleanText(md));
+    };
+
     async function sendMessage(e) {
-      e.preventDefault();                  // منع إعادة تحميل الصفحة
+      e.preventDefault();
+      const input = document.getElementById("userInput");
+      const text = input.value.trim();
+      if (!text) return;
 
-      const input = document.getElementById('userInput');
-      const text  = input.value.trim();
-      if (!text) return;                   // تجاهل الفراغ
+      appendMessage("user", text);
+      input.value = "";
+      appendMessage("bot", "جارٍ معالجة استشارتك…");
 
-      appendMessage('user', text);         // أضف رسالة المستخدم
-      input.value = '';                    // أفرغ الحقل
-
-      // رسالة انتظار مبدئية
-      appendMessage('bot', 'جارٍ معالجة استشارتك…');
-
-      // ⚙️  استبدل الاستدعاء التالى باستدعاء الـAPI الفعلي الخاص بك
       try {
-        const response = await fetch('https://qanoneed-api.onrender.com/api/chat', {
-          method : 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body   : JSON.stringify({ question: text })
+        const res = await fetch(`${API_BASE}/api/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: text })
         });
-
-        if (!response.ok) throw new Error('Network response was not ok');
-
-        const data = await response.json();               // { answer: '...' }
-        // حدِّث آخر فقاعة للبوت بالجواب الفعلي
-        const lastBotBubble = document.querySelectorAll('.message.bot .bubble');
-        lastBotBubble[lastBotBubble.length - 1].textContent = data.answer || 'لم يتم العثور على إجابة.';
+        if (!res.ok) throw new Error("Network error");
+        const { answer } = await res.json();
+        updateLastBotBubble(answer || "لم يتم العثور على إجابة.");
       } catch (err) {
-        // في حال الخطأ: عدِّل النصّ لإظهار رسالة خطأ
-        const lastBotBubble = document.querySelectorAll('.message.bot .bubble');
-        lastBotBubble[lastBotBubble.length - 1].textContent = 'حدث خطأ، حاول مرة أخرى.';
+        updateLastBotBubble("حدث خطأ، حاول مرة أخرى.");
         console.error(err);
       }
     }
-
-    // اختياري: تغيير لون الهيدر عند التمرير – كما في index.html
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('.header');
-      if (header) {
-        header.style.background = window.scrollY > 50
-          ? 'rgba(0, 0, 0, 0.98)'
-          : 'rgba(5, 5, 5, 0.95)';
-      }
-    });
   </script>
 </body>
+
 </html>
