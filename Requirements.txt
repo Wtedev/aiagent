@@ -1,5 +1,5 @@
-crewai==0.63.5 
-python-dotenv==1.0.0 
+crewai
+python-dotenv
 langchain-openai 
 crewai[tools]
 streamlit
