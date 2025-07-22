@@ -1,5 +1,13 @@
 import streamlit as st
 from app.openSdk import load_database, find_matching_cases, generate_final_judgment, agent_phase1, agent_phase2
+st.markdown("""
+    <style>
+    html, body, [class*="css"] {
+        direction: rtl;
+        text-align: right;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # ----------------------------
 #  Initialize Phase 1 & Phase 2 Models

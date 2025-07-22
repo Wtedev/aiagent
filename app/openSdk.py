@@ -3,8 +3,10 @@ import openai
 import math
 from openai import OpenAI
 
+import os
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
-def load_database(database_path: str="C:\\Users\\wejda\\Desktop\\dataset.jsonl", max_items: int=None):
+def load_database(database_path: str="data/cases.jsonl", max_items: int=None):
     database = []
     for line in open(database_path, encoding="utf8"):
         if line.strip() == "":
@@ -57,7 +59,7 @@ agent_phase2 = """
 
 
 
-llm = OpenAI(api_key=("********************"))
+llm = OpenAI(api_key=(openai_api_key))
 def fetch_openai_chat(context, input):
     response = llm.chat.completions.create(
         model="gpt-4o-mini",
