@@ -3,6 +3,7 @@ fastapi
 uvicorn[standard]
 python-dotenv
 pydantic     
+tiktoken>=0.9.0 
 
 crewai[tools]   
 langchain-openai
