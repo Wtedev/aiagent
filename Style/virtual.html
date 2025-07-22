@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>القاضي الافتراضي – بوت الحكم الافتراضي  </title>
+
+  <style>
+
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #ffffff;
+      overflow-x: hidden;
+      direction: rtl;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.08;
+      background-image:
+        linear-gradient(rgba(20, 37, 45, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20, 37, 45, 0.15) 1px, transparent 1px),
+        linear-gradient(rgba(26, 53, 64, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 53, 64, 0.08) 1px, transparent 1px);
+      background-size: 60px 60px, 60px 60px, 20px 20px, 20px 20px;
+      animation: gridMove 25s linear infinite, gridPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes gridMove {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(60px, 60px);
+      }
+    }
+
+    @keyframes gridPulse {
+      0%,
+      100% {
+        opacity: 0.08;
+      }
+
+      50% {
+        opacity: 0.12;
+      }
+    }
+
+    .grid-background::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(45deg, rgba(20, 37, 45, 0.05) 1px, transparent 1px),
+        linear-gradient(-45deg, rgba(20, 37, 45, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridRotate 30s linear infinite reverse;
+    }
+
+    @keyframes gridRotate {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.1);
+      }
+
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    .grid-background::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle at center, rgba(20, 37, 45, 0.2) 1px, transparent 1px);
+      background-size: 80px 80px;
+      animation: gridDots 20s ease-in-out infinite;
+    }
+
+    @keyframes gridDots {
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+      }
+    }
+
+    .gradient-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at 30% 20%, rgba(20, 37, 45, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(26, 53, 64, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(16, 33, 62, 0.15) 0%, transparent 70%);
+    }
+
+    .light-beam {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .light-beam::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent 0deg, rgba(20, 37, 45, 0.15) 45deg, rgba(26, 53, 64, 0.25) 90deg, rgba(20, 37, 45, 0.15) 135deg, transparent 180deg, transparent 360deg);
+      animation: rotateBeam 20s linear infinite;
+      border-radius: 50%;
+    }
+
+    @keyframes rotateBeam {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 1000;
+    }
+
+    .top-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a3540;
+    }
+
+    .back-btn {
+      background: linear-gradient(135deg, #14252d, #1a3540);
+      color: #ffffff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(20, 37, 45, 0.3);
+    }
+
+    .chat-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 1000px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 4px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      height: 70vh;
+    }
+
+    .chat-log {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      padding-right: 0.5rem;
+      color: #fff;
+    }
+
+    .message {
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .message.user {
+      justify-content: flex-start;
+    }
+
+    .message.bot {
+      justify-content: flex-end;
+    }
+
+    .bubble {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      max-width: 70%;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .message.user .bubble {
+      background: linear-gradient(135deg, #14252d, #1a3540);
+      color: #fff;
+    }
+
+    .message.bot .bubble {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    .chat-input button {
+      background: linear-gradient(135deg, #14252d, #1a3540);
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .chat-input button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(20, 37, 45, 0.3);
+    }
+
+    @media (max-width:768px) {
+      .chat-container {
+        height: 75vh;
+        padding: 1.2rem;
+      }
+
+      .chat-input button {
+        padding: 0.6rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grid-background"></div>
+  <div class="gradient-overlay"></div>
+  <div class="light-beam"></div>
+
+  <div class="top-bar">
+    <span class="top-title">القاضي الافتراضي</span>
+    <a href="index.html" class="back-btn">العودة إلى الصفحة الرئيسية</a>
+  </div>
+
+  <section class="chat-section">
+    <div class="chat-container">
+      <div id="chatLog" class="chat-log"></div>
+
+      <form id="chatForm" class="chat-input" onsubmit="sendMessage(event)">
+        <input id="userInput" type="text" placeholder="اكتب وصف للقضية هنا …" autocomplete="off" required />
+        <button type="submit">إرسال</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content" style="text-align:center; padding:1rem 0; opacity:0.7; font-size:0.85rem;">
+      © 2025 قانونيد – جميع الحقوق محفوظة.
+    </div>
+  </footer>
+
+  <script>
+    async function sendMessage(event) {
+      event.preventDefault();
+
+      const input = document.getElementById('userInput');
+      const chatLog = document.getElementById('chatLog');
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      appendMessage('user', userText);
+      input.value = '';
+
+      appendMessage('bot', '🔄 جاري تحليل القضية، يرجى الانتظار...');
+
+      try {
+        const response = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ description: userText })
+        });
+
+        const data = await response.json();
+
+        removeLastBotMessage();
+
+        if (data.error) {
+          appendMessage('bot', `❌ حدث خطأ: ${data.error}`);
+          return;
+        }
+
+        if (data.similar_cases && data.similar_cases.length > 0) {
+          let similarCasesText = '🔍 القضايا المتشابهة:\n';
+          data.similar_cases.forEach(c => {
+            similarCasesText += `🆔 ${c.case_id} - 🔹 ${c.PointOfSimilarity || 'لا يوجد'}\n`;
+          });
+          appendMessage('bot', similarCasesText);
+        } else {
+          appendMessage('bot', 'لا توجد قضايا متشابهة.');
+        }
+
+        if (data.similar_cases && data.similar_cases.length > 0) {
+          let overviewText = '📚 نظرة عامة على القضايا المتشابهة:\n';
+          data.similar_cases.forEach(c => {
+            overviewText += `🆔 ${c.case_id} - 📝 ${c.summary || ''}\n`;
+          });
+          appendMessage('bot', overviewText);
+        }
+
+        if (data.Source) {
+          appendMessage('bot', `🧠 أساس الحكم:\n${data.Source}`);
+        }
+
+        if (data.predicted_judgment) {
+          appendMessage('bot', `📖 الحكم النهائي:\n${data.predicted_judgment}`);
+        } else {
+          appendMessage('bot', 'لم يتم توليد الحكم.');
+        }
+
+      } catch (error) {
+        removeLastBotMessage();
+        appendMessage('bot', '⚠️ فشل الاتصال بالسيرفر.');
+        console.error(error);
+      }
+    }
+
+    function appendMessage(type, text) {
+      const chatLog = document.getElementById('chatLog');
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message', type);
+
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.classList.add('bubble');
+      bubbleDiv.textContent = text;
+
+      messageDiv.appendChild(bubbleDiv);
+      chatLog.appendChild(messageDiv);
+
+      chatLog.scrollTop = chatLog.scrollHeight; 
+    }
+
+    function removeLastBotMessage() {
+      const chatLog = document.getElementById('chatLog');
+      const botMessages = chatLog.querySelectorAll('.message.bot');
+      if (botMessages.length > 0) {
+        botMessages[botMessages.length - 1].remove();
+      }
+    }
+  </script>
+</body>
+
+</html>
