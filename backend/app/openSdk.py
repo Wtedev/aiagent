@@ -3,21 +3,24 @@ import openai
 import math
 from openai import OpenAI
 
-import os
-openai_api_key = os.getenv("OPENAI_API_KEY")
 
 def load_database(database_path: str="data/cases.jsonl", max_items: int=None):
     database = []
-    for line in open(database_path, encoding="utf8"):
-        if line.strip() == "":
-            continue
-        rec = json.loads(line)
-        database.append({
-            "case_id": rec["case_id"],
-            "summaryOfCase": rec["summaryOfCase"],
-            "whole_case": rec.get("whole_case", {})
-        })
-    return database if not max_items else database[:max_items]
+    try:
+        with open(database_path, encoding="utf8") as f:
+            for line in f:
+                if line.strip() == "":
+                    continue
+                rec = json.loads(line)
+                database.append({
+                    "case_id": rec["case_id"],
+                    "summaryOfCase": rec["summaryOfCase"],
+                    "whole_case": rec.get("whole_case", {})
+                })
+        return database if not max_items else database[:max_items]
+    except Exception as e:
+        print(f"Error loading database: {e}")
+        return []
 
 
 
@@ -34,7 +37,7 @@ agent_phase2 = """
 مهمتك إصدار حكم نهائي مفصل لقضية المستخدم، ويجب أن يشمل الإخراج JSON يحتوي على المفاتيح التالية:
 
 1. "similar_cases": قائمة من القضايا المتشابهة بصيغة:
-   [{"case_id": 15, "summary": "موجز للقضية ونص الحكم"}]
+   [{"case_id": 15,"summary": "ملخص اقل من 50 كلمة يصف وقائع القضية، متبوعًا بملخص مختصر لحكم القاضي في هذه القضية (فكرة الحكم أو النتيجة الرئيسية فقط، بدون تفاصيل مطولة)."}]
 
 2. "Source": شرح قصير يوضح كيف ساعدتك القضايا المشابهة في إصدار الحكم (بالعربية وبأسلوب واضح).
 
@@ -42,7 +45,7 @@ agent_phase2 = """
 
 - ابدأ بمقدمة شرعية مثل: "الحمد لله وحده، والصلاة والسلام على من لا نبي بعده، وبعد:"
 - قدم عرضًا موجزًا لما ورد في الدعوى من وقائع وأدلة ومستندات.
-- يجب عليك الاستناد إلى الأنظمة الشرعية والنظامية، والأحاديث والآيات المناسبة.
+- يجب عليك الاستشهاد إلى الأنظمة الشرعية والنظامية، والأحاديث والآيات المناسبة.
 - صِغ منطوق الحكم مفصلًا وبالترتيب (أولًا، ثانيًا، ثالثًا...).
 - لا تذكر القضايا المشابهة بالنص ولا تشير إليها، ولكن استفد منها في إصدار الحكم.
 - اختم الحكم بصيغة رسمية مثل: "والله الموفق، وصلى الله على نبينا محمد وعلى آله وصحبه وسلم أجمعين."
@@ -59,7 +62,7 @@ agent_phase2 = """
 
 
 
-llm = OpenAI(api_key=(openai_api_key))
+llm = OpenAI(api_key=("********************"))
 def fetch_openai_chat(context, input):
     response = llm.chat.completions.create(
         model="gpt-4o-mini",
