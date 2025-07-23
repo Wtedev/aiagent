@@ -1,4 +1,4 @@
-import json
+import json,os
 import openai
 import math
 from openai import OpenAI
@@ -61,8 +61,9 @@ agent_phase2 = """
 """
 
 
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
-llm = OpenAI(api_key=("********************"))
+llm = OpenAI(api_key=(openai_api_key))
 def fetch_openai_chat(context, input):
     response = llm.chat.completions.create(
         model="gpt-4o-mini",

@@ -1,5 +1,5 @@
 from crewai import Task, Crew
-from backend.app.agents import get_agents
+from backend.app.chatbot.agents import get_agents
 
 def create_crew(llm, user_question, law_context):
     manager, researcher, writer = get_agents(llm, user_question, law_context)
@@ -43,6 +43,9 @@ def create_crew(llm, user_question, law_context):
             "- Free of vague or dismissive answers\n"
             "- Contains specific citations or fallback reasoning\n\n"
             "If the answer lacks clarity or missed a legal point, refine and fix it yourself. The final answer must look like it came from a top Saudi law office."
+            "OUTPUT **must be ONLY the final Arabic consultation**—no English notes, "
+            "no meta-commentary, no explanations of what you changed. "
+        
         ),
         expected_output="A polished and confident legal consultation answer, ready to be delivered to the user.",
         agent=manager,

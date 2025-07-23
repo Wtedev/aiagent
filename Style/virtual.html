@@ -4,11 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>القاضي الافتراضي – بوت الحكم الافتراضي  </title>
-
+  <title>القاضي الافتراضي – بوت الحكم الافتراضي </title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
-
-* {
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -53,6 +52,7 @@
     }
 
     @keyframes gridPulse {
+
       0%,
       100% {
         opacity: 0.08;
@@ -103,6 +103,7 @@
     }
 
     @keyframes gridDots {
+
       0%,
       100% {
         opacity: 0.3;
@@ -331,83 +332,63 @@
 
   <script>
     async function sendMessage(event) {
-      event.preventDefault();
+  event.preventDefault();
 
-      const input = document.getElementById('userInput');
-      const chatLog = document.getElementById('chatLog');
-      const userText = input.value.trim();
-      if (!userText) return;
+  const input = document.getElementById('userInput');
+  const chatLog = document.getElementById('chatLog');
+  const userText = input.value.trim();
+  if (!userText) return;
 
-      appendMessage('user', userText);
-      input.value = '';
+  appendMessage('user', userText);
+  input.value = '';
 
-      appendMessage('bot', '🔄 جاري تحليل القضية، يرجى الانتظار...');
+  appendMessage('bot', '🔄 جاري تحليل القضية، يرجى الانتظار...');
 
-      try {
-        const response = await fetch('/api/analyze', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ description: userText })
-        });
+  try {
+  const response = await fetch('/virtual', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user_query: userText })
+  });
 
-        const data = await response.json();
+  const data = await response.json();
+  const result = data.result || data;
 
-        removeLastBotMessage();
+  removeLastBotMessage();
 
-        if (data.error) {
-          appendMessage('bot', `❌ حدث خطأ: ${data.error}`);
-          return;
-        }
+  if (result.error) {
+    appendMessage('bot', `❌ حدث خطأ: ${result.error}`);
+    return;
+  }
 
-        if (data.similar_cases && data.similar_cases.length > 0) {
-          let similarCasesText = '🔍 القضايا المتشابهة:\n';
-          data.similar_cases.forEach(c => {
-            similarCasesText += `🆔 ${c.case_id} - 🔹 ${c.PointOfSimilarity || 'لا يوجد'}\n`;
-          });
-          appendMessage('bot', similarCasesText);
-        } else {
-          appendMessage('bot', 'لا توجد قضايا متشابهة.');
-        }
+  // ONLY SHOW الحكم النهائي
+  if (result.predicted_judgment) {
+  appendMessage('bot', result.predicted_judgment); // Markdown only, no prefix
+} else {
+  appendMessage('bot', 'لم يتم توليد الحكم.');
+}
 
-        if (data.similar_cases && data.similar_cases.length > 0) {
-          let overviewText = '📚 نظرة عامة على القضايا المتشابهة:\n';
-          data.similar_cases.forEach(c => {
-            overviewText += `🆔 ${c.case_id} - 📝 ${c.summary || ''}\n`;
-          });
-          appendMessage('bot', overviewText);
-        }
+} catch (error) {
+  removeLastBotMessage();
+  appendMessage('bot', '⚠️ فشل الاتصال بالسيرفر.');
+  console.error(error);
+}}
 
-        if (data.Source) {
-          appendMessage('bot', `🧠 أساس الحكم:\n${data.Source}`);
-        }
+function appendMessage(type, text) {
+  const chatLog = document.getElementById('chatLog');
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message', type);
 
-        if (data.predicted_judgment) {
-          appendMessage('bot', `📖 الحكم النهائي:\n${data.predicted_judgment}`);
-        } else {
-          appendMessage('bot', 'لم يتم توليد الحكم.');
-        }
+  const bubbleDiv = document.createElement('div');
+  bubbleDiv.classList.add('bubble');
+  // Render Markdown!
+  bubbleDiv.innerHTML = marked.parse(text);
 
-      } catch (error) {
-        removeLastBotMessage();
-        appendMessage('bot', '⚠️ فشل الاتصال بالسيرفر.');
-        console.error(error);
-      }
-    }
+  messageDiv.appendChild(bubbleDiv);
+  chatLog.appendChild(messageDiv);
 
-    function appendMessage(type, text) {
-      const chatLog = document.getElementById('chatLog');
-      const messageDiv = document.createElement('div');
-      messageDiv.classList.add('message', type);
-
-      const bubbleDiv = document.createElement('div');
-      bubbleDiv.classList.add('bubble');
-      bubbleDiv.textContent = text;
-
-      messageDiv.appendChild(bubbleDiv);
-      chatLog.appendChild(messageDiv);
-
-      chatLog.scrollTop = chatLog.scrollHeight; 
-    }
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
 
     function removeLastBotMessage() {
       const chatLog = document.getElementById('chatLog');

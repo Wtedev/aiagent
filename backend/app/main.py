@@ -5,12 +5,14 @@ Run with:
 """
 
 from __future__ import annotations
-
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from pydantic import BaseModel
+from typing import Any, Dict
 
+from backend.app.virtual.api_virtual import run_virtual_agents
 # Load environment variables from .env, if present
 load_dotenv()
 
@@ -38,10 +40,19 @@ app.add_middleware(
 )
 
 # Routers -----------------------------------------------------------
-from backend.app.api_chat import router as chat_router  # noqa: E402  (import after app for clarity)
+from backend.app.chatbot.api_chat import router as chat_router
 
 app.include_router(chat_router, prefix="/api")
 
+
+class VirtualRequest(BaseModel):
+    user_query: Any  
+
+@app.post("/virtual")
+async def virtual_consultation(req: VirtualRequest):
+   
+    result = run_virtual_agents(req.user_query)
+    return {"result": result}
 # Health‑check ------------------------------------------------------
 
 @app.get("/health", tags=["meta"])
@@ -54,6 +65,6 @@ async def health() -> dict[str, str]:
 # ------------------------------------------------------------------
 
 if __name__ == "__main__":
-    import uvicorn  # only imported when run directly
+    import uvicorn 
 
-    uvicorn.run("app.main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=True)
+    uvicorn.run("backend.app.main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=True)

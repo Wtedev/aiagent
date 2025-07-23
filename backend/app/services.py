@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
-from backend.app.tasks import create_crew        
+from backend.app.chatbot.tasks import create_crew        
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -30,7 +30,7 @@ _executor = ThreadPoolExecutor(max_workers=4)
 
 # --------------------------------------------------------
 
-async def run_chat(question: str, k: int = 5) -> str:
+async def run_chat(question: str, k: int = 20) -> str:
     docs = vector_db.similarity_search(question, k=k)
     law_context = "\n\n".join(d.page_content for d in docs)
     crew = create_crew(llm, question, law_context)
@@ -49,8 +49,8 @@ async def run_chat(question: str, k: int = 5) -> str:
         return getattr(last, "raw", str(last))
 
     # fallback أخير
-    return str(result)
-async def run_chat_stream(question: str, k: int = 5):
+    return result.raw.strip()
+async def run_chat_stream(question: str, k: int = 20):
 
     docs = vector_db.similarity_search(question, k=k)
     law_context = "\n\n".join(d.page_content for d in docs)
