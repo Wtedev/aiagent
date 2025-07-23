@@ -13,12 +13,9 @@ from pydantic import BaseModel
 from typing import Any, Dict
 
 from backend.app.virtual.api_virtual import run_virtual_agents
-# Load environment variables from .env, if present
+
 load_dotenv()
 
-# ────────────────────────────────────────────────
-# Helper to turn CORS_ORIGINS env → list[str]
-# ────────────────────────────────────────────────
 
 def _parse_origins(env_value: str | None) -> list[str]:
     if not env_value or env_value.strip() == "*":
@@ -53,6 +50,9 @@ async def virtual_consultation(req: VirtualRequest):
    
     result = run_virtual_agents(req.user_query)
     return {"result": result}
+
+from backend.app.roadmap.api_roadmap import router as roadmap_router
+app.include_router(roadmap_router)
 # Health‑check ------------------------------------------------------
 
 @app.get("/health", tags=["meta"])

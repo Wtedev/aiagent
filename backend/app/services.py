@@ -2,6 +2,7 @@ from __future__ import annotations
 import os, functools, asyncio
 from concurrent.futures import ThreadPoolExecutor
 
+from backend.app.roadmap.roadmap_agents import create_roadmap_crew
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -59,3 +60,17 @@ async def run_chat_stream(question: str, k: int = 20):
 
     answer = await run_chat(question, k)
     yield answer
+
+async def run_roadmap(question: str, k: int = 8) -> str:
+    docs = vector_db.similarity_search(question, k=k)
+    context = "\n\n".join(d.page_content for d in docs)
+    crew = create_roadmap_crew(llm, question, context)
+
+    loop = asyncio.get_event_loop()
+    result = await loop.run_in_executor(_executor, crew.kickoff)
+
+    if isinstance(result, str):
+        return result
+    if hasattr(result, "raw"):              # CrewOutput
+        return result.raw
+    return str(result)

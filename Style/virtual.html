@@ -345,27 +345,38 @@
   appendMessage('bot', '🔄 جاري تحليل القضية، يرجى الانتظار...');
 
   try {
-  const response = await fetch('/virtual', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ user_query: userText })
-  });
-
-  const data = await response.json();
-  const result = data.result || data;
+  const response = await fetch("/virtual", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ user_query: userText })
+});
+const { result } = await response.json();
 
   removeLastBotMessage();
 
-  if (result.error) {
-    appendMessage('bot', `❌ حدث خطأ: ${result.error}`);
-    return;
-  }
+// 1) القضايا المتشابهة
+if (result.similar_cases && result.similar_cases.length) {
+  let html = "## 🔍 القضايا المتشابهة\n";
+  result.similar_cases.forEach(c => {
+    html += `* **القضية #${c.case_id}**  \n`
+          + `  • التشابه: _${c.PointOfSimilarity || "غير محدد"}_  \n`
+          + `  • نبذة: ${c.summary}  \n`
+          + (c.ruling ? `  • الحكم: **${c.ruling}**  \n` : "")
+          + "\n";
+  });
+  appendMessage("bot", html);
+}
 
-  // ONLY SHOW الحكم النهائي
-  if (result.predicted_judgment) {
-  appendMessage('bot', result.predicted_judgment); // Markdown only, no prefix
+// 2) أساس الحكم
+if (result.Source) {
+  appendMessage("bot", `## 🧠 أساس الحكم\n${result.Source}`);
+}
+
+// 3) الحكم النهائي
+if (result.predicted_judgment) {
+  appendMessage("bot", `## 📖 الحكم النهائي\n${result.predicted_judgment}`);
 } else {
-  appendMessage('bot', 'لم يتم توليد الحكم.');
+  appendMessage("bot", "لم يتم توليد الحكم.");
 }
 
 } catch (error) {
