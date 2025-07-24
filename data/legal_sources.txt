@@ -1,19 +1,8 @@
-# هنا توضع جميع الروابط للمواقع التي تحتوي على الانظمه والقوانين الرسمية
-
-# *********موقع مجلس الوزراء ************
-#------------------------
-#الأنظمة الأساسية
-#------------------------
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/16b97fcb-4833-4f66-8531-a9a700f161b6/1 #النظام الأساسي للحكم
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/b5cf540a-e6ac-426a-b348-a9a700f163de/1 #نظام مجلس الشورى
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/93e87aa7-f344-4711-b97c-a9a700f1662b/1 #نظام مجلس الوزراء
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/93f81644-fbbc-49ca-b33c-a9a700f16701/1 #نظام المناطق
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/3213c2f6-eaf8-45dc-8f8c-a9a700f167ee/1 #هيئة البيعة
-
-#------------------------
-#أنظمة عادية
-#------------------------
-# - الإعلام والثقافة والنشر - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/83431376-5cf3-4374-875a-a9a700f16985/1 #نظام الإذاعة الاساسي
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/0057fd8d-8ad4-48f9-b02f-a9a700f16a48/1 #نظام دارة الملك عبدالعزيز
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a4d3a985-a838-47e8-977e-a9a700f16c1c/1 #نظام الوثائق والمحفوظات
@@ -27,7 +16,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/dc90bcd7-26fe-44c0-a40d-a9a700f1
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/77d77bae-afbb-4481-a1cd-a9a700f1744b/1 #نظام عقوبات نشر الوثائق والمعلومات السرية وإفشائها
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ed5fdbc0-c183-4a8a-a8b7-a9ed004b5900/1 #نظام الإعلام المرئي والمسموع
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/f935b20b-e275-4f4f-9441-acad00e22fdb/1 #نظام صندوق التنمية الثقافي
-# - الأمن الداخلي والأحوال المدنية والأنظمة الجنائية - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/c1878d16-7ce0-4710-993b-a9a700f17ac5/1 #النظام الجزائي لجرائم التزوير
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/f5b4288e-5625-4cf3-8ce8-a9a700f17bf9/1 #نظام جوازات السفر السياسية والخاصة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/19945fe2-e690-4b24-9ab0-a9a700f17d03/1 #نظام السجن والتوقيف
@@ -62,7 +50,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/61fa8a49-aa1b-49ed-b9ad-adaa00dc
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/b7cfae89-828e-4994-b167-adaa00e37188/1 #نظام حماية البيانات الشخصية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/2716057c-c097-4bad-8e1e-ae1400c678d5/1 #نظام الإثبات
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/f3a44a6f-9217-478b-b7ca-af3401391514/1 #نظام استخدام كاميرات المراقبة الأمنية
-# - التجارة والاقتصاد والاستثمار - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/b19a8aa6-7b50-43f0-ab8c-a9a700f1a446/1 #نظام الوكالات التجارية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/2541255e-9e5b-4393-a8b0-a9a700f1a596/1 #نظام صندوق الاستثمارات العامة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/cf510039-d022-421f-9901-a9a700f1a8a0/1 #نظام محلات بيع المركبات الملغى تسجيلها
@@ -116,11 +103,9 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/eda86cc3-3a00-4b90-900d-b1d000c8
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ad9ed861-70e6-4d31-9268-b20400d68915/1 #نظام القياس والمعايرة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/d4801a45-7f76-4414-bdca-b20900db6fc4/1 #نظام الأسماء التجارية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/98ee4b51-d398-4323-ae69-b2b8009f3156/1 #نظام السجل التجاري
-# - التشريفات والمراسم والسلك الدبلوماسي - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/9ba0d5dc-2dc4-4b71-b979-a9a700f1f5fd/1 #نظام الأوسمة السعودية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/e1fd0b90-ced3-4402-ad60-a9a700f1f755/1 #نظام الميداليات المدنية والعسكرية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/03de5462-eda0-4dd6-9efa-a9a700f1f802/1 #نظام العلم للمملكة العربية السعودية
-# - التعليم والعلوم - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/b3f0cb3a-6338-4995-91d7-a9a700f1fad2/1 #نظام معهد الدراسات الدبلوماسية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/4033de9e-45f5-406f-9b3c-a9a700f1fbf0/1 #نظام مدينة الملك عبد العزيز للعلوم والتقنية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a6843359-3237-4553-8271-a9a700f1fcda/1 #نظام مجلس التعليم العالي والجامعات
@@ -130,12 +115,10 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/f457818f-2d89-4339-b7e7-a9a700f1
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/4db42334-ba00-47bf-b9f9-a9f4016e0ac1/1 #النظام الأساس لجمعية الكشافة العربية السعودية 
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/8ee74282-7f0d-49ff-b6ee-aafc00a3d801/1 #نظام الجامعات
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/c3825760-995a-4f0e-83ca-af230115f2f5/1 #النظام الأساس لجامعة الملك سعود (مؤسسة أكاديمية مستقلة غير هادفة للربح)
-# - الحج والشؤون الإسلامية - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/23b12c1f-6823-4759-982e-a9a700f2031a/1 #نظام الأئمة والمؤذنين وخدم المساجد
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/c57d7f19-9b3e-4161-bb91-a9a700f203fb/1 #نظام نقل الحجاج إلى المملكة وإعادتهم إلى بلادهم
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/f55f0003-8b87-4ff0-8f0f-a9a700f20578/1 #نظام خدمة حجاج الداخل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/962235c2-9fa8-4c1a-b835-aa6400dd851e/1 # نظام مقدمي خدمة حجاج الخارج
-# - الخدمات البلدية والتخطيط والتطوير الحضري - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ece2f7dc-db78-4ba4-a9e4-a9a700f20da3/1 #نظام الطرق والمباني
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/3563a355-6ff9-4296-af66-a9a700f20e70/1 #نظام الإحصاءات العامة للدولة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/0fceb9eb-d143-4d87-8a47-a9a700f20f2e/1 #نظام تعداد السكان العام
@@ -162,14 +145,12 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/5efb6f40-d859-47e6-9c8a-b0450094
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/d19fbfe8-6517-4e8b-b06a-b09000cefe1b/1 #نظام ملكية الوحدات العقارية وفرزها وإدارتها
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/99613e6a-6b85-423c-87af-b0ec00b4633e/1 #نظام بيع وتأجير مشروعات عقارية على الخارطة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/eef585a5-c63a-4906-a951-b208009b3eff/1 #نظام ضريبة التصرفات العقارية
-# - الخدمة العسكرية - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/0838afd4-ca76-4b4a-b1d1-a9a700f22afd/1 #نظام التقاعد العسكري
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/e36e899b-f29b-4db0-8b71-a9a700f23065/1 #نظام الكليات العسكرية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/11d3d5b0-dddf-443a-9851-a9a700f23208/1 #نظام مجلس الخدمة العسكرية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ea6489f2-9c4e-43ce-892e-a9a700f23355/1 #نظام الأنواط العسكرية السعودية ولائحته التنظيمية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/985cf9ba-02ec-4eb1-9e36-a9a700f23514/1 #نظام الملابس والتجهيزات العسكرية الفردية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/8a12c94e-5a31-45cf-9c57-ac4400be8677/1 #نظام خدمة الضباط
-# - الخدمة المدنية -  مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/b2a002e4-a3da-474b-9735-a9a700f2386c/1 #نظام الوزراء ونواب الوزراء وموظفي المرتبة الممتازة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/859d4e56-627b-4766-a7aa-a9a700f23975/1 #نظام التقاعد المدني
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/32f651e6-2976-439c-b418-a9a700f23fb2/1 #نظام الخدمة المدنية
@@ -177,7 +158,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/1fe7fe77-d349-4fae-a561-a9a700f2
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ae482429-33b8-4e3f-a3ae-a9a700f23d5c/1 #نظام تبادل المنافع بين نظامي التقاعد المدني والعسكري ونظام التأمينات الإجتماعية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/fc9ac74c-fc7d-4456-a0e2-a9a700f23eff/1 #النظام الموحد لمد الحماية التأمينية لمواطني دول مجلس التعاون لدول الخليج العربية العاملين في غير دولهم في أي دولة عضو في المجلس
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/896f4986-334b-4c76-b938-ada500eae2eb/1 #نظام الانضباط الوظيفي
-# - الزراعة والمياه والثروات الحية - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/c1a70c2f-ba99-45ce-9dd8-a9a700f243ef/1 #نظام توزيع الأراضي البور
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/37f95015-f360-45be-8f91-a9a700f244c1/1 #نظام المؤسسة العامة لتحلية المياه المالحة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/588efd09-dc0d-4491-82e4-a9a700f245f6/1 #نظام المحافظة على مصادر المياه
@@ -202,7 +182,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/63831ff6-63d9-4212-8b54-abf800e1
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/d113fa79-5ad8-42b1-9955-acfb00a2c7ed/1 #نظام الزراعة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/cd3a793a-ab18-4ad3-b28e-ad2e00a7f88f/1 #نظام الأرصاد
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/159008ad-198a-4439-b28b-b081009b92c2/1 #نظام صندوق التنمية الزراعية.
-# - السلطة القضائية وحقوق الإنسان - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/2072c9ff-5a70-444e-91cc-a9a700f26346/1 #نظام تركيز مسؤوليات القضاء الشرعي
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/e143d9d5-1889-45d8-8d99-a9a700f263cd/1 #نظام محاكمة الوزراء
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/5535039e-13da-43f6-8f53-a9a700f26485/1 #نظام التحكيم
@@ -224,16 +203,13 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/3e368087-7b31-46e7-8005-ada100b8
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ae1d79bf-3716-4bc5-a85e-ada100c8a870/1 #نظام التنفيذ أمام ديوان المظالم
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/4d72d829-947b-45d5-b9b5-ae5800d6bac2/1 #نظام الأحوال الشخصية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/655fdb42-8c96-422b-b8c4-b04f0095c94c/1 #نظام المعاملات المدنية
-# - السياحة والآثار - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a7d4493b-7c03-4c2d-b3c6-a9a700f275cd/1 #نظام الآثار والمتاحف والتراث العمراني
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/8161ec24-d5e0-48b4-8392-a9a700f278d8/1 #نظام حماية التراث المخطوط في المملكة العربية السعودية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/0f0ebdaa-a50b-4410-9460-abe500b03486/1 #نظام صندوق التنمية السياحي
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/7d777c66-d28b-43de-9305-af23013b1738/1 #نظام السياحة
-# - الشباب والرياضة - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/bbfab460-8fe8-4425-9202-a9a700f27ba7/1 #نظام جمعية الكشافة العربية السعودية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/040228ce-9ca5-4666-aab1-a9a700f27c6d/1 #النظام الأساسي للاتحادات الرياضية واللجنة الأولمبية العربية السعودية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/d805702d-77b9-40d0-92bd-a9a700f27da2/1 #نظام أندية السيارات والدراجات النارية
-# - الصحة - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/6c8d5fc7-ce6c-4636-9c72-a9a700f28290/1 #نظام الهيئة السعودية للتخصصات الصحية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/4c55f487-89fa-4d0f-80f1-a9a700f2835e/1 #نظام المختبرات الخاصة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/1169b2b7-4e7d-4775-86b0-a9a700f2841e/1 #النظام الصحي
@@ -255,7 +231,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/9daec1bf-6bda-4a65-a111-ace90163
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/4a16fbc8-7f1d-4647-8acc-ad0900d849c2/1 #نظام التبرع بالأعضاء البشرية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/cdb31382-3f97-4232-82e8-ae0b00dc2727/1 #النظام الأساس لمستشفى الملك فيصل التخصصي ومركز الأبحاث (مؤسسة مستقلة ذات طبيعة خاصة وغير هادفة للربح)
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a187d565-1a52-45cc-a1de-b2dc00daae23/1 #النظام الأساس لمستشفى الملك خالد التخصصي للعيون ومركز الأبحاث (مؤسسة مستقلة ذات طبيعة خاصة وغير هادفة للربح)
-# - الطاقة والصناعة والتعدين - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/33531bcc-0d4d-4193-9703-a9a700f2947a/1 #نظام حماية وتشجيع الصناعات الوطنية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/407a32f0-2e60-4c3e-9994-a9a700f2952a/1 #نظام صندوق التنمية الصناعية السعودي
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/0f54d227-1450-4231-93cd-a9a700f29821/1 #نظام المعادن الثمينة والأحجار الكريمة
@@ -270,7 +245,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/2a68bdd7-6395-417e-be02-a9f70181
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/9560f620-e77e-476c-b9ea-abdd00b87480/1 #نظام الاستــثمار التعديني.
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/b3060214-c11a-4709-b191-aca700cbcc58/1 #نظام الكهرباء
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/c1777105-e927-4fa8-978d-af9900e23e18/1 #نظام إمدادات الطاقة
-# - العمل والرعاية الاجتماعية -  مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/87c1482d-fa95-41ea-98b6-a9a700f2a529/1 #نظام الضمان الصحي التعاوني
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/8ff3cd90-e466-4bf9-a071-a9a700f2a70d/1 #نظام التأمينات الاجتماعية 1421هـ
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/872950d8-7059-41fd-a6f1-a9a700f2a962/1 #نظام رعاية المعوقين
@@ -287,7 +261,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/3c63e654-4046-468d-93fd-ae1a00de
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/e52b691a-785c-42a7-8916-b07d00e4fd38/1 #نظام حقوق الأشخاص ذوي الإعاقة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/eaee8a20-3a54-4aaf-b0d9-b1ad00998962/1 #نظام التأمينات الاجتماعية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/738c42bb-a29f-4da7-bed4-b1d300a55f20/1 #نظام جمع التبرعات
-# - المال والرقابة - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/25fed59a-2790-4a77-ab11-a9a700f2c5fd/1 #نظام جباية الزكاة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/8f70dc63-dd9a-4734-9216-a9a700f2c78c/1 #نظام مراقبة البنوك
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/5dc538d4-5bbd-4995-8f0c-a9a700f2c88c/1 #نظام ديوان المراقبة العامة
@@ -309,7 +282,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/bf568515-eef9-4356-9d52-a9a700f2
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/fd30f9c7-8606-4367-bb22-a9a700f2d952/1 #نظام وظائف مباشرة الأموال العامة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a292ec7e-85fb-4ceb-9ad0-ac9200ced829/1 #نظام البنك المركزي السعودي
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a8ebff8e-412c-4f67-ac5f-b1ca008d18d9/1 #نظام هيئة الرقابة ومكافحة الفساد
-# - المواصلات والاتصالات - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/cddb94e2-167b-4158-af5f-a9a700f2de58/1 #نظام نقابة السيارات
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/748dc7f1-acae-43a2-b536-a9a700f2dfa3/1 #نظام حماية خطوط السكك الحديدية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/21bbfc47-571d-4916-82b6-a9a700f2e06c/1 #نظام المؤسسة العامة للخطوط الجوية العربية السعودية
@@ -325,13 +297,7 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/43344715-1e0d-4e7f-9895-aa3d00f6
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/8ca91427-5be7-4807-80ae-adc700a97f0d/1 #نظام البريد
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ae610645-e094-48ef-814e-aeb4009d244f/1 #نظام الاتصالات وتقنية المعلومات
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/302fe435-6f39-4170-b12b-b13700bf55bd/1 #نظام الخطوط الحديدية
-
-#------------------------
-#لوائح وما في حكمها
-#------------------------
-# -  الإعلام والثقافة والنشر -  مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/16c49913-599f-406b-b016-a9a700f172c9/1 #قواعد تنظيم لوحات الدعاية والإعلان
-# -  الأمن الداخلي والأحوال المدنية والأنظمة الجنائية - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/be479758-9a84-4e94-b1d3-a9a700f19454/1 #اللائحة التنفيذية لنظام مكافحة المخدرات والمؤثرات العقلية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/9a0249b7-f835-48fa-8d1e-a9a700f1981a/1 #اللائحة التنفيذية لنظام الإجراءات الجزائية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/e2997001-1d2c-4113-b322-a9fa01631039/1 #اللائحة التنفيذية لنظام مكافحة جرائم الإرهاب وتمويله
@@ -340,7 +306,6 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a62c4bd7-03c7-42fb-8356-b2ec00e3
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/90f66860-d28b-40ed-b49d-ac3700baf50e/1 #لائحة حقوق وواجبات من يستعان بهم في أعمال الدفاع المدني وعلاقتهم بجهاتهم
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/0b15d62d-6e3a-4894-b6fa-ad0700926350/1 #تنظيم الفحص الفني الدوري للمركبات
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/caca1b4d-f344-444b-a1f3-afce00d6840b/1 #ضوابط إيقاف الخدمات
-# -  التجارة والاقتصاد والاستثمار - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a748e485-620c-45c4-8ca8-a9f40166406d/1 #اللائحة التنفيذية لنظام الإفلاس
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/7b1c33b7-c2af-4c88-bb3e-ab5700b28ae4/1 #لائحة تفضيل المحتوى المحلي والمنشآت الصغيرة والمتوسطة المحلية والشركات المدرجة في السوق المالية في الأعمال والمشتريات
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/262382ab-7ff9-4e3a-9291-acbb01406f5e/1 #لائحة تنظيم سلوكيات وأخلاقيات القائمين على تطبيق نظام المنافسات والمشتريات الحكومية ولائحته التنفيذية
@@ -348,35 +313,26 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a64ba260-aa19-46f7-8b9f-acbb014c
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/861bfe91-e37d-4c72-8f07-acc700231794/1 #لائحة رقابة ديوان المراقبة العامة على المؤسسات الخاصة والشركات التي تساهم الدولة في رأسمالها أو تضمن لها حدا ادنى من الأرباح (لائحة رقابة الديوان العام للمحاسبة)
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/cb94c5cf-017b-46c1-92b8-ac3e00deaff7/1 #قواعد عمل اللجان الإشرافية للقطاعات المستهدفة بالتخصيص ومهماتها (المعدلة)
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/f95abff1-7f8b-4aea-9e97-adb900a2576e/1 #القواعد المنظمة للتخصيص
-# -  التشريفات والمراسم والسلك الدبلوماسي - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/7f647ef9-d8ae-4a23-90a2-a9a700f1f999/1 #اللائحة التنفيذية لنظام الأوسمة السعودية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/70da3158-a022-4dee-b94d-a9a700f1f9f1/1 #تنظيم مشاركة الوفود الرسمية في الاجتماعات
-# -  التعليم والعلوم - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/e9c8ba58-4cca-4f5a-bb02-a9a700f200a3/1 #القواعد التنظيمية الخاصة بإنشاء وحدات التدريب غير الربحية في مجال التدريب التقني والمهني
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/db470744-edce-47a9-8f45-a9a700f201f3/1 #لائحة المدارس الأجنبية
-# -  الحج والشؤون الإسلامية - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/9bfa5aa2-77cb-4e3d-a3e7-b20a00c3dccb/1 #اللائحة التنظيمية لتأشيرات العمل المؤقت والعمل المؤقت لخدمات الحج والعمرة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/87e36287-f62c-4006-b677-a9a700f20677/1 #تنظيم معاملة القادمين للمملكة بتأشيرات دخول للحج أو العمرة وغيرها
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/812ac6e0-430d-4c9d-b6cb-a9a700f2080c/1 #تنظيم خدمات المعتمرين وزوار المسجد النبوي الشريف القادمين من خارج المملكة
-# -  الخدمات البلدية والتخطيط والتطوير الحضري - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/81fa0eb9-de83-4e83-b2aa-a9a700f21774/1 #تنظيم تملك مواطني دول المجلس للعقار في الدول الأعضاء بمجلس التعاون لغرض السكن والاستثمار
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/1e29de81-aa5e-4d27-9b90-a9a700f21aed/1 #تنظيم الدعم السكني
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/06272e6b-1fb9-4226-90b7-a9a700f21dc0/1 #اللائحة التنفيذية لنظام نزع ملكية العقارات للمنفعة العامة ووضع اليد المؤقت على العقار
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/d4ae4834-f19a-48b5-8577-a9a700f21e14/1 #اللائحة التنفيذية لنظام رسوم الأراضي البيضاء
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/921c3d40-85cd-4f5e-aa97-aca900b92c72/1 #لائحة الجزاءات عن المخالفات البلدية
-# -  الخدمة المدنية - لا يوجد محتوى
-# -  الزراعة والمياه والثروات الحية - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/3f29ae83-240d-4626-8cb1-a9a700f25425/1 #الترتيب التنظيمي لمصانع المياه
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/cb055cd5-3055-4b20-8ec7-abef00ae3433/1 #ضوابط تصدير مياه الشرب المعبأة
-# -  السلطة القضائية وحقوق الإنسان - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/788be42c-94c8-48ae-bdf9-a9a700f273f4/1 #لائحة أعضاء هيئة التحقيق والادعاء العام والعاملين فيها
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/12752a60-2a4a-4cab-a05d-a9a700f274a5/1 #اللائحة التنفيذية لنظام التحكيم
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/d7e8efd3-4021-4413-8255-ae7c00f190de/1 #اللائحة التنفيذية لنظام التكاليف القضائية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/8b59b6e9-94ff-4d7c-90df-acc60000e5ee/1 #آلية العمل التنفيذية لنظام القضاء ونظام ديوان المظالم
-# -  الصحة - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/de7dfbea-f1ca-4cd0-b664-a9a700f28e01/1 #تنظيم نفقات المرضى السعوديين ومرافقيهم المحولين للعلاج خارج مناطق إقامتهم
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/f9c638b2-ee80-4f2b-8406-a9a700f292d3/1 #لائحة البحوث والدراسات في وزارة الصحة
-# -  العمل والرعاية الاجتماعية - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/4682a0f0-ba74-4a5f-b0e9-a9a700f2aa14/1 #قواعد ترشيح رواد العمل التطوعي واختيارهم وتكريمهم
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/09a30b92-50a5-41ce-b404-a9a700f2b4e6/1 #اللائحة التنظيمية لمراكز التنمية الاجتماعية
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ed69b738-fa85-4777-9f56-a9a700f2b630/1 #الضوابط الخاصة بوضع الأطفال السعوديين في الخارج من أب سعودي وأم غير سعودية
@@ -395,16 +351,9 @@ https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/ce1982e0-5c1c-4f2e-91fa-b13700ee
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/9f08ef46-6240-4fd7-a437-ac8900df75a8/1 #اللائحة التنفيذية لنظام الأحداث
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/bf8b73e3-a411-400d-b34b-ad2c00eb44e9/1 #تنظيم إعانة البحث عن عمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/02a1eb0b-ab11-4900-851e-ad4600cd84a8/1 #اللائحة التنظيمية لدور الأحداث
-# -  المواصلات والاتصالات - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/b359badb-2ea0-4cbc-bbfb-a9a700f2f11b/1 #لائحة إنشاء الطرق من قبل الأهالي والشركات
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/1849b646-0b05-427d-9116-a9a700f2f175/1 #لائحة ضوابط دخول القوارب (السنابيك) إلى موانئ المملكة العربية السعودية والغرامات المترتبة
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/b9fbe3d4-2952-4f9b-b881-b05d008baeec/1 #لائحة حقوق والتزامات مستخدمي وسائل النقل العام
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/eb1ceceb-d684-404c-afd7-aa6400f17220/1 #ضوابط استخدام تقنيات المعلومات والاتصالات في الجهات الحكومية
-# -  السياحة والآثار - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/3b96a591-47c8-4469-9abb-aa4700f1aa52/1 #لائحة المحافظة على الذوق العام
-# -  الشباب والرياضة - مكتمل
 https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/0b5b0f37-b2c9-4b3f-8657-acce001690f5/1 #اللائحة التنظيمية للخيل العربية الأصيلة
-
-#------------------------
-#تنظيمات وترتيبات تنظيمية
-#------------------------

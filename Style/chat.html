@@ -4,16 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مستشارك القانوني – بوت الاستشارات القانونية</title>
+  <title>مستشارك القانوني – بوت الاستشارات</title>
 
-
+  <!-- ====== النمط العام الموحَّد (مستورد من الصفحة الرئيسية) ====== -->
   <style>
+    /* RESET */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box
     }
 
+    /* ====== ألوان وخلفيات موحّدة ======*/
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #0a0a0a;
@@ -22,7 +24,15 @@
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 100vh
+      min-height: 100vh;
+      padding-left: 260px;
+      transition: .2s
+    }
+
+    @media(max-width:900px) {
+      body {
+        padding-left: 0
+      }
     }
 
     .grid-background,
@@ -36,7 +46,66 @@
       z-index: -2
     }
 
-    /* شريط العنوان */
+    .grid-background {
+      opacity: .08;
+      background-image:
+        linear-gradient(rgba(20, 37, 45, .15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20, 37, 45, .15) 1px, transparent 1px),
+        linear-gradient(rgba(26, 53, 64, .08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 53, 64, .08) 1px, transparent 1px);
+      background-size: 60px 60px, 60px 60px, 20px 20px, 20px 20px;
+      animation: gridMove 25s linear infinite, gridPulse 8s ease-in-out infinite
+    }
+
+    @keyframes gridMove {
+      0% {
+        transform: translate(0, 0)
+      }
+
+      100% {
+        transform: translate(60px, 60px)
+      }
+    }
+
+    @keyframes gridPulse {
+
+      0%,
+      100% {
+        opacity: .08
+      }
+
+      50% {
+        opacity: .12
+      }
+    }
+
+    .gradient-overlay {
+      background: radial-gradient(circle at 30% 20%, rgba(20, 37, 45, .08) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(26, 53, 64, .05) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(16, 33, 62, .15) 0%, transparent 70%)
+    }
+
+    .light-beam::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent 0deg, rgba(20, 37, 45, .15)45deg, rgba(26, 53, 64, .25)90deg, rgba(20, 37, 45, .15)135deg, transparent 180deg, transparent 360deg);
+      animation: rotateBeam 20s linear infinite;
+      border-radius: 50%
+    }
+
+    @keyframes rotateBeam {
+      0% {
+        transform: rotate(0)
+      }
+
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+
+    /* ====== شريط علوي ====== */
     .top-bar {
       position: fixed;
       top: 0;
@@ -54,7 +123,7 @@
     .top-title {
       font-size: 1.4rem;
       font-weight: 700;
-      color: #1a3540
+      color: #14252d
     }
 
     .back-btn {
@@ -73,7 +142,81 @@
       box-shadow: 0 4px 12px rgba(20, 37, 45, .3)
     }
 
-    /* منطقة الشات */
+    /* ====== لوحة المحادثات السابقة ======*/
+    .history {
+      position: fixed;
+      left: 0;
+      top: 64px;
+      width: 260px;
+      height: calc(100% - 64px);
+      background: rgba(0, 0, 0, .88);
+      border-right: 1px solid rgba(255, 255, 255, .05);
+      padding: 1rem .9rem;
+      overflow-y: auto;
+      z-index: 900
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .8rem
+    }
+
+    .history-header h3 {
+      font-size: 1rem;
+      color: #58c9b9
+    }
+
+    .history-header .new-chat-btn {
+      background: linear-gradient(135deg, #14252d, #1a3540);
+      color: #fff;
+      border: none;
+      padding: .35rem .9rem;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s
+    }
+
+    .history-header .new-chat-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(20, 37, 45, .3)
+    }
+
+    .history ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: .9rem
+    }
+
+    .history li {
+      margin-bottom: .55rem;
+      padding: .45rem .35rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .05);
+      cursor: pointer;
+      transition: .2s
+    }
+
+    .history li:hover {
+      background: rgba(118, 110, 243, .30)
+    }
+
+    .history li.active {
+      background: #756ef3;
+      color: #fff
+    }
+
+    @media(max-width:900px) {
+      .history {
+        display: none
+      }
+    }
+
+    /* ====== منطقة الدردشة ======*/
     .chat-section {
       flex: 1;
       display: flex;
@@ -93,6 +236,13 @@
       backdrop-filter: blur(12px);
       display: flex;
       flex-direction: column
+    }
+
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem
     }
 
     .chat-log {
@@ -131,25 +281,7 @@
 
     .bot .bubble {
       background: rgba(255, 255, 255, .08);
-      color: #e8e8ff;
-      white-space: normal
-    }
-
-    /* Markdown جمالى */
-    .bot .bubble h2,
-    .bot .bubble h3 {
-      margin: .4em 0 .2em;
-      font-size: 1.05rem;
-      color: #6fa8dc
-    }
-
-    .bot .bubble ul {
-      margin: .3em 0;
-      padding-right: 1.2em
-    }
-
-    .bot .bubble li {
-      margin-bottom: .25em
+      color: #e8e8ff
     }
 
     .chat-input {
@@ -195,95 +327,81 @@
       }
     }
   </style>
-
-  <!-- مكتبة Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
-  <!-- الخلفيات -->
   <div class="grid-background"></div>
   <div class="gradient-overlay"></div>
   <div class="light-beam"></div>
+  <div class="top-bar"><span class="top-title">مستشارك القانوني</span><a href="index.html" class="back-btn">العودة إلى
+      الرئيسية</a></div>
 
-  <!-- شريط العنوان -->
-  <div class="top-bar">
-    <span class="top-title">مستشارك القانوني</span>
-    <a class="back-btn" href="index.html">العودة إلى الصفحة الرئيسية</a>
-  </div>
+  <!-- ====== لوحة التاريخ ====== -->
+  <aside class="history">
+    <div class="history-header">
+      <h3>المحادثات السابقة</h3>
+      <button class="new-chat-btn" onclick="startNewChat()">محادثة جديدة</button>
+    </div>
+    <ul id="historyList"></ul>
+  </aside>
 
-  <!-- الشات -->
+  <!-- ====== الشات ====== -->
   <section class="chat-section">
     <div class="chat-container">
       <div id="chatLog" class="chat-log"></div>
-
-      <form id="chatForm" class="chat-input" onsubmit="sendMessage(event)">
+      <form class="chat-input" onsubmit="sendMessage(event)">
         <input id="userInput" type="text" placeholder="اكتب استشارتك القانونية هنا…" autocomplete="off" required />
         <button type="submit">إرسال</button>
       </form>
     </div>
   </section>
 
-  <footer style="text-align:center;padding:1rem 0;opacity:.7;font-size:.85rem">
-    © 2025 قانونيد – جميع الحقوق محفوظة.
+  <footer style="text-align:center;padding:1rem 0;opacity:.7;font-size:.85rem">© 2025 قانونيد – جميع الحقوق محفوظة.
   </footer>
 
-  <!-- سكربت الدردشة -->
   <script>
-    const API_BASE = ""; 
+    const API_BASE = ""; // عدّل إذا كان الخادم على نطاق مختلف
 
-    /* إضافة رسالة إلى الـ log */
-    function appendMessage(role, content) {
-      const log = document.getElementById("chatLog");
-      const msg = document.createElement("div");
-      msg.className = "message " + role;
+    /* =========== أدوات مساعدة =========== */
+    const clean = t => t.replaceAll("```", "").trim();
+    function appendMessage(role, content) { const log = document.getElementById("chatLog"); const msg = document.createElement("div"); msg.className = "message " + role; const bubble = document.createElement("div"); bubble.className = "bubble"; bubble.innerHTML = role === "bot" ? marked.parse(clean(content)) : content; msg.appendChild(bubble); log.appendChild(msg); log.scrollTop = log.scrollHeight; }
 
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
+    /* =========== إدارة السجلّ =========== */
+    let currentConv = []; // [{role,content}, …]
+    function loadConvs() { return JSON.parse(localStorage.getItem("chatConvs") || "[]"); }
 
-      if (role === "bot") {
-        bubble.innerHTML = marked.parse(cleanText(content));
-      } else {
-        bubble.textContent = content;
-      }
-
-      msg.appendChild(bubble);
-      log.appendChild(msg);
-      log.scrollTop = log.scrollHeight;
+    function saveCurrentToHistory() {
+      if (!currentConv.length) return;
+      const title = (currentConv.find(m => m.role === "user")?.content.slice(0, 30)) || "محادثة غير معنونة";
+      let arr = loadConvs();
+      const hash = JSON.stringify(currentConv);
+      // إزالة أي محادثة سابقة مطابقة لنفس المحتوى لتجنّب التكرار
+      arr = arr.filter(c => JSON.stringify(c.messages) !== hash);
+      arr.unshift({ title, messages: currentConv, ts: Date.now() });
+      localStorage.setItem("chatConvs", JSON.stringify(arr.slice(0, 20)));
     }
 
-    /* تنظيف: فقط إزالة ``` */
-    const cleanText = txt => txt.replaceAll("```", "").trim();
-
-    const updateLastBotBubble = md => {
-      const bubbles = document.querySelectorAll(".message.bot .bubble");
-      bubbles[bubbles.length - 1].innerHTML = marked.parse(cleanText(md));
-    };
-
-    async function sendMessage(e) {
-      e.preventDefault();
-      const input = document.getElementById("userInput");
-      const text = input.value.trim();
-      if (!text) return;
-
-      appendMessage("user", text);
-      input.value = "";
-      appendMessage("bot", "جارٍ معالجة استشارتك…");
-
-      try {
-        const res = await fetch(`${API_BASE}/api/chat`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: text })
-        });
-        if (!res.ok) throw new Error("Network error");
-        const { answer } = await res.json();
-        updateLastBotBubble(answer || "لم يتم العثور على إجابة.");
-      } catch (err) {
-        updateLastBotBubble("حدث خطأ، حاول مرة أخرى.");
-        console.error(err);
-      }
+    function rebuildHistory() {
+      const list = document.getElementById("historyList"); list.innerHTML = "";
+      loadConvs().forEach((c, i) => {
+        const li = document.createElement("li"); li.textContent = c.title + (c.title.length === 30 ? "…" : "");
+        li.onclick = () => loadConversation(i); list.appendChild(li);
+      });
     }
+
+    function loadConversation(idx) { const conv = loadConvs()[idx]; if (!conv) return; document.getElementById("chatLog").innerHTML = ""; conv.messages.forEach(m => appendMessage(m.role, m.content)); currentConv = [...conv.messages];[...document.querySelectorAll("#historyList li")].forEach(li => li.classList.remove("active")); document.querySelectorAll("#historyList li")[idx].classList.add("active"); }
+
+    /* =========== إرسال =========== */
+    async function sendMessage(e) { e.preventDefault(); const inp = document.getElementById("userInput"); const text = inp.value.trim(); if (!text) return; appendMessage("user", text); currentConv.push({ role: "user", content: text }); inp.value = ""; appendMessage("bot", "جارٍ المعالجة…"); try { const res = await fetch(`${API_BASE}/api/chat`, { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: text }) }); if (!res.ok) throw new Error(); const { answer } = await res.json(); updateLastBot(answer || "لم يتم العثور على إجابة."); currentConv.push({ role: "bot", content: answer || "" }); } catch (err) { updateLastBot("حدث خطأ، حاول مرة أخرى."); currentConv.push({ role: "bot", content: "خطأ" }); } }
+
+    function updateLastBot(md) { const b = document.querySelectorAll(".message.bot .bubble"); b[b.length - 1].innerHTML = marked.parse(clean(md)); }
+
+    /* =========== محادثة جديدة =========== */
+    function startNewChat() { saveCurrentToHistory(); rebuildHistory(); currentConv = []; document.getElementById("chatLog").innerHTML = "";[...document.querySelectorAll("#historyList li")].forEach(li => li.classList.remove("active")); document.getElementById("userInput").focus(); }
+
+    /* بناء القائمة عند الفتح */
+    document.addEventListener("DOMContentLoaded", rebuildHistory);
   </script>
 </body>
 

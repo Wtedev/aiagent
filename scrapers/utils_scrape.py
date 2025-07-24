@@ -1,46 +1,77 @@
+# utils_scrape.py
+# -*- coding: utf-8 -*-
+"""
+أدوات السحب والتنظيف لبوابة الأنظمة السعودية (BOE)
+--------------------------------------------------
+* جلسة CloudScraper تتجاوز حماية Cloudflare.
+* إعادة المحاولة التلقائيـة مع back-off أسّي.
+* دوال مساعدة:
+    • extract_urls(text)        → قائمة كل الروابط في نص حر
+    • clean_text(text)          → إزالة الفراغات والأسطر الزائدة
+    • fetch_html(url)           → جلب HTML خام مع Timeout كبير
+    • extract_visible_text(html)→ النص المرئي فقط
+    • robust_scrape(url)        → جلب + تنظيف مع إعادة المحاولة
+"""
 
-import re
-import time
-import requests
+from __future__ import annotations
+
+import random, re, time
+from typing import List, Tuple
+
+import cloudscraper
+from requests.adapters import HTTPAdapter, Retry
 from bs4 import BeautifulSoup
-def extract_urls(text: str) -> list[str]:
-    """Extracts all valid URLs from a block of text."""
-    return re.findall(r'https?://[^\s)>\]"\'<>]+', text)
+
+
+# ──────────────────────────────── 1. جلسة HTTP ────────────────────────────────
+def _make_session() -> cloudscraper.CloudScraper:
+    """تهيئة CloudScraper مع سياسة إعادة المحاولة."""
+    sess = cloudscraper.create_scraper()
+    retry_strategy = Retry(
+        total=5,                        # إجمالي المحاولات
+        backoff_factor=2,               # 0→2→4→8→16 ثانية
+        status_forcelist=[429, 502, 503, 504],
+        allowed_methods=["GET"],
+        raise_on_status=False,
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    sess.mount("https://", adapter)
+    sess.mount("http://", adapter)
+    return sess
+
+
+SESSION = _make_session()
+
+
+# ───────────────────────────── 2. أدوات مساعدة بسيطة ─────────────────────────
+def extract_urls(text: str) -> List[str]:
+    """استخراج كل روابط http/https من نص."""
+    return re.findall(r"https?://[^\s)>\]\"'<>]+", text)
+
 
 def clean_text(text: str) -> str:
-    """Clean raw HTML or scraped text by removing excess whitespace and formatting issues."""
-    text = re.sub(r'\s+', ' ', text)  # Normalize all whitespace
-    text = re.sub(r'\n{3,}', '\n\n', text.strip())  # Limit line breaks
-    return text.strip()
+    """تنظيف الفراغات والأسطر المكرّرة."""
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\n{2,}", "\n\n", text).strip()
+    return text
 
-def fetch_html(url: str, headers=None, timeout=10) -> str:
-    """Fetch raw HTML content from a URL with retry and timeout support."""
-    try:
-        response = requests.get(url, headers=headers or {}, timeout=timeout)
-        response.raise_for_status()
-        return response.text
-    except requests.RequestException as e:
-        print(f"❌ Error fetching {url}: {e}")
-        return ""
+
+# ───────────────────────────── 3. جلب HTML خام ───────────────────────────────
+def fetch_html(url: str, *, timeout: int = 60) -> str:
+    """
+    جلب الصفحة مع مهلة 60 ثانية (افتراضيًا).  
+    تـُرفع استثناءات requests عند الفشل.
+    """
+    resp = SESSION.get(url, timeout=timeout)
+    resp.raise_for_status()
+    return resp.text
+
 
 def extract_visible_text(html: str) -> str:
-    """Extract visible text from HTML using BeautifulSoup."""
+    """حذف <script> و <style> … إلخ، ثم إرجاع النص النظيف."""
     soup = BeautifulSoup(html, "html.parser")
+    for bad in soup(["script", "style", "noscript", "header", "footer", "nav"]):
+        bad.decompose()
+    return clean_text(soup.get_text(separator="\n"))
 
-    # Remove unwanted elements
-    for tag in soup(["script", "style", "noscript", "header", "footer", "nav"]):
-        tag.decompose()
 
-    text = soup.get_text(separator="\n")
-    return clean_text(text)
-
-def robust_scrape(url: str, retries: int = 3, delay: float = 2.0) -> str:
-    """Attempt to scrape and clean visible text from a webpage with retries."""
-    for attempt in range(1, retries + 1):
-        print(f"🔎 Attempt {attempt} to scrape: {url}")
-        html = fetch_html(url)
-        if html:
-            return extract_visible_text(html)
-        time.sleep(delay)
-    print(f"❌ Failed to scrape after {retries} attempts: {url}")
-    return ""

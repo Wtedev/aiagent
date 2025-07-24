@@ -63,7 +63,8 @@ agent_phase2 = """
 
 
 
-llm = OpenAI(api_key=("********************"))
+llm = OpenAI(api_key=(""
+))
 def fetch_openai_chat(context, input):
     response = llm.chat.completions.create(
         model="gpt-4o-mini",

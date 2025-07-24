@@ -33,8 +33,7 @@ _executor = ThreadPoolExecutor(max_workers=4)
 
 async def run_chat(question: str, k: int = 20) -> str:
     docs = vector_db.similarity_search(question, k=k)
-    law_context = "\n\n".join(d.page_content for d in docs)
-    crew = create_crew(llm, question, law_context)
+    crew = create_crew(llm, question, docs)
 
 
     loop = asyncio.get_event_loop()
@@ -54,17 +53,20 @@ async def run_chat(question: str, k: int = 20) -> str:
 async def run_chat_stream(question: str, k: int = 20):
 
     docs = vector_db.similarity_search(question, k=k)
-    law_context = "\n\n".join(d.page_content for d in docs)
-
-    crew = create_crew(llm, question, law_context)
+    crew = create_crew(llm, question, docs)
 
     answer = await run_chat(question, k)
     yield answer
 
-async def run_roadmap(question: str, k: int = 8) -> str:
+async def run_chat_stream(question: str, k: int = 20):
     docs = vector_db.similarity_search(question, k=k)
-    context = "\n\n".join(d.page_content for d in docs)
-    crew = create_roadmap_crew(llm, question, context)
+    crew = create_crew(llm, question, docs)
+    answer = await run_chat(question, k)
+    yield answer
+
+async def run_roadmap(question: str, k: int = 20) -> str:
+    docs = vector_db.similarity_search(question, k=k)
+    crew = create_roadmap_crew(llm, question, docs)
 
     loop = asyncio.get_event_loop()
     result = await loop.run_in_executor(_executor, crew.kickoff)

@@ -1,47 +1,119 @@
-import os
-import re
-import json
-from dotenv import load_dotenv
-from crewai_tools import ScrapeWebsiteTool
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.docstore.document import Document
+from __future__ import annotations
+import json, pathlib, re
+from datetime import datetime
+import requests
+from bs4 import BeautifulSoup
+from utils_scrape import SESSION, clean_text  # Cloudflare session
 
-# Load API key
-load_dotenv()
+def fetch_articles(law_id):
+    url = f"https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/{law_id}/1"
+    response = SESSION.get(url)
+    if not response.ok:
+        print(f"❌ Failed to fetch law: {law_id}")
+        return []
 
-SOURCE_FILE = "data/legal_sources.txt"
-OUTPUT_DIR = "data/laws_texts"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    articles = []
+    current_part = None
 
-CHUNK_SIZE = 1000
-CHUNK_OVERLAP = 200
-splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
+    for article in soup.find_all("div", class_="article_item"):
+        title_elem = article.find("h3", class_="center")
+        content_elem = article.find("div", class_="HTMLContainer")
+        if not title_elem or not content_elem:
+            continue
 
-url_pattern = r'https?://[\S]+'
+        title = title_elem.get_text(strip=True)
+        content = content_elem.get_text(separator="\n", strip=True)
 
+        # Section titles (e.g., "الباب الأول")
+        if re.match(r"^(الباب|الفصل)\s", title):
+            current_part = title
+            continue
 
-def scrape_static_sources():
-    with open(SOURCE_FILE, 'r', encoding='utf-8') as f:
-        urls = re.findall(url_pattern, f.read())
+        # Amendments using data-articleid
+        amendments = []
+        amend_link = article.find("a", class_="ancArticlePrevVersions")
+        if amend_link and amend_link.has_attr("data-articleid"):
+            amend_id = amend_link["data-articleid"]
+            amend_div = soup.find("div", class_=f"{amend_id} popup-list")
+            if amend_div:
+                html_blocks = amend_div.find_all("div", class_="HTMLContainer")
+                for block in html_blocks:
+                    text = block.get_text(strip=True)
+                    if text:
+                        amendments.append({"text": text})
 
-    all_documents = []
-    for i, url in enumerate(urls, start=1):
-        try:
-            print(f"🔍 Scraping {i}: {url}")
-            text = ScrapeWebsiteTool(website_url=url).run()
-            clean_text = re.sub(r'\n{3,}', '\n\n', text.strip())
+        articles.append({
+            "title": title,
+            "content": content,
+            "part": current_part,
+            "amendments": amendments if amendments else None
+        })
 
-            file_path = os.path.join(OUTPUT_DIR, f"law_{i}.txt")
-            with open(file_path, 'w', encoding='utf-8') as out:
-                out.write(clean_text)
+    return articles
 
-            chunks = splitter.create_documents([clean_text], metadatas=[{"source": url}])
-            all_documents.extend(chunks)
-            print(f"✅ Saved and chunked law_{i}.txt into {len(chunks)} chunks.")
+def extract_metadata(soup):
+    meta = {}
+    try:
+        info_box = soup.select_one("div.system_info")
+        for row in info_box.select("div"):
+            label_elem = row.select_one("label")
+            value_elem = row.select_one("span")
+            if label_elem and value_elem:
+                label = label_elem.text.strip()
+                value = value_elem.text.strip()
+                meta[label] = value
+    except Exception:
+        pass
 
-        except Exception as e:
-            print(f"❌ Failed to scrape {url}: {e}")
-    return all_documents
+    try:
+        desc_elem = soup.select_one("div.system_brief .HTMLContainer")
+        meta["نبذة عن النظام"] = desc_elem.get_text(" ", strip=True) if desc_elem else ""
+    except Exception:
+        meta["نبذة عن النظام"] = ""
 
-if __name__ == '__main__':
-    scrape_static_sources()
+    return meta
+
+def read_sources(path="data/legal_sources.txt") -> list[dict]:
+    sources = []
+    with open(path, encoding="utf8") as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith("#") or not line:
+                continue
+            url, name = line.split("#")
+            law_id = url.split("/")[-2]
+            sources.append({
+                "law_id": law_id,
+                "name": name.strip(),
+                "url": url.strip()
+            })
+    return sources
+
+def main():
+    sources = read_sources()
+    final_data = []
+
+    for law in sources:
+        print(f"📘 Fetching: {law['name']}")
+        url = f"https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/{law['law_id']}/1"
+        r = SESSION.get(url)
+        if not r.ok:
+            print(f"❌ Failed: {law['law_id']}")
+            continue
+
+        soup = BeautifulSoup(r.text, "html.parser")
+        law["metadata"] = extract_metadata(soup)
+        law["articles"] = fetch_articles(law["law_id"])
+        final_data.append(law)
+
+    out_path = pathlib.Path("data/laws_index.json")
+    out_path.write_text(json.dumps({
+        "generated_at": datetime.now().isoformat(),
+        "laws": final_data
+    }, ensure_ascii=False, indent=2), encoding="utf8")
+
+    print("✅ Saved:", out_path)
+
+if __name__ == "__main__":
+    main()

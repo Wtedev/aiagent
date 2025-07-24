@@ -2,7 +2,7 @@ import streamlit as st
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app.openSdk import load_database, find_matching_cases, generate_final_judgment, agent_phase1, agent_phase2
+from backend.app.virtual.openSdk import load_database, find_matching_cases, generate_final_judgment, agent_phase1, agent_phase2
 
 # ----------------------------
 #  Initialize Phase 1 & Phase 2 Models
