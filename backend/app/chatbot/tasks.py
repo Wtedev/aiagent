@@ -29,7 +29,7 @@ def create_crew(llm, user_question, extracted_chunks):
             "- Begin with a direct, clear answer to the user question.\n"
             "- Include explanation with legal citations (law name + article number + excerpt).\n"
             "- Format the answer clearly using Markdown (e.g., bold, bullet points).\n"
-            "- Include correct and valid source URLs when available.\n"
+            "- Include correct and valid source BOE URLs when available.\n"
             "- Avoid vague or dismissive responses. Only say 'no legal basis found' if absolutely necessary."
         ),
         expected_output="A clear, structured, and well-cited legal consultation in Arabic.",
@@ -44,6 +44,7 @@ def create_crew(llm, user_question, extracted_chunks):
             "- The Arabic language is clear and professional.\n"
             "- Article numbers, names of laws, and sources are included.\n"
             "- The formatting helps user comprehension.\n\n"
+            "the url is valid if it is BOE url and it start with:https://laws.boe.gov.sa/ "
             "Fix any issues yourself. Your final output **must be the consultation only**, without English notes or extra commentary."
         ),
         expected_output="The finalized legal consultation in Arabic.",

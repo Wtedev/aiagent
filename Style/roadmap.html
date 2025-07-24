@@ -1,94 +1,207 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>مولّد خارطة الطريق القانونية</title>
 
-  <!-- نفس الـ look&feel الداكن -->
+
   <style>
-.roadmap-step{
-  background:rgba(255,255,255,.05);
-  border:2px solid rgba(118,110,243,.25);
-  border-radius:12px;
-  padding:1.2rem 1.4rem;
-  margin-bottom:1.2rem;      
-}
-.roadmap-step h3{
-  font-size:1.25rem;
-  color:#6fa8dc;           
-  margin-bottom:.4rem;
-}
-.step-meta{
-  list-style:none;
-  padding:0;margin:0 0 .6rem 0;
-  font-size:.95rem;
-}
-.step-meta li{margin-bottom:.2rem}
-.step-desc{margin:.3rem 0 0 0;font-size:.95rem}
-.step-obst{margin:.6rem 0 0 0;font-size:.9rem;color:#e3e3e3}
-.step-obst em{color:#8ed08e}
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      background:#0a0a0a;color:#fff;direction:rtl;overflow-x:hidden;
-      display:flex;flex-direction:column;min-height:100vh
-    }
-    /* الخلفيات المتحركة */
-    .grid-background,.gradient-overlay,.light-beam{
-      position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2
+    .roadmap-step {
+      background: rgba(255, 255, 255, .05);
+      border: 2px solid rgba(118, 110, 243, .25);
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1.2rem;
     }
 
-    /* شريط علوي */
-    .top-bar{
-      position:fixed;top:0;left:0;width:100%;padding:1rem 2rem;
-      background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.05);
-      display:flex;justify-content:space-between;align-items:center;z-index:1000
+    .roadmap-step h3 {
+      font-size: 1.25rem;
+      color: #6fa8dc;
+      margin-bottom: .4rem;
     }
-    .top-title{font-size:1.4rem;font-weight:700;color:#1a3540}
-    .back-btn{
-      background:linear-gradient(135deg,#14252d,#1a3540);color:#fff;
-      padding:.5rem 1.2rem;border-radius:6px;text-decoration:none;font-size:.9rem;font-weight:600;
-      transition:.3s
-    }
-    .back-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(20,37,45,.3)}
 
-    /* منطقة توليد خارطة الطريق */
-    .roadmap-section{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 1.5rem 3rem}
-    .question-box{max-width:800px;width:100%;display:flex;gap:1rem;margin-bottom:1.5rem}
-    .question-box input{
-      flex:1;padding:.9rem 1.2rem;background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:1rem
+    .step-meta {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 .6rem 0;
+      font-size: .95rem;
     }
-    .question-box button,.reset-btn{
-      background:linear-gradient(135deg,#14252d,#1a3540);color:#fff;
-      border:none;border-radius:10px;padding:.9rem 1.4rem;font-size:.95rem;font-weight:600;
-      cursor:pointer;transition:.3s
-    }
-    .question-box button:hover,.reset-btn:hover{
-      transform:translateY(-2px);box-shadow:0 4px 12px rgba(20,37,45,.3)
-    }
-    /* حاوية الناتج */
-    .output-container{
-      width:100%;max-width:1000px;min-height:55vh;
-      background:rgba(0,0,0,.35);border:4px solid rgba(255,255,255,.07);
-      border-radius:12px;padding:2rem;overflow-y:auto;backdrop-filter:blur(12px);
-      line-height:1.8;font-size:1rem
-    }
-    .output-container h2{color:#6fa8dc;margin:0 0 .6em}
-    .output-container ol{padding-right:1.4em;margin:.5em 0}
-    .output-container li{margin-bottom:.45em}
-    /* زر إعادة */
-    .reset-btn{margin-top:1.5rem}
 
-    @media(max-width:768px){
-      .roadmap-section{padding-top:7rem}
+    .step-meta li {
+      margin-bottom: .2rem
+    }
+
+    .step-desc {
+      margin: .3rem 0 0 0;
+      font-size: .95rem
+    }
+
+    .step-obst {
+      margin: .6rem 0 0 0;
+      font-size: .9rem;
+      color: #e3e3e3
+    }
+
+    .step-obst em {
+      color: #8ed08e
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      direction: rtl;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh
+    }
+
+    .grid-background,
+    .gradient-overlay,
+    .light-beam {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2
+    }
+
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, .95);
+      border-bottom: 1px solid rgba(255, 255, 255, .05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000
+    }
+
+    .top-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a3540
+    }
+
+    .back-btn {
+      background: linear-gradient(135deg, #14252d, #1a3540);
+      color: #fff;
+      padding: .5rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: .3s
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(20, 37, 45, .3)
+    }
+
+    .roadmap-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1.5rem 3rem
+    }
+
+    .question-box {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem
+    }
+
+    .question-box input {
+      flex: 1;
+      padding: .9rem 1.2rem;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1rem
+    }
+
+    .question-box button,
+    .reset-btn {
+      background: linear-gradient(135deg, #14252d, #1a3540);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: .9rem 1.4rem;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s
+    }
+
+    .question-box button:hover,
+    .reset-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(20, 37, 45, .3)
+    }
+
+    .output-container {
+      width: 100%;
+      max-width: 1000px;
+      min-height: 55vh;
+      background: rgba(0, 0, 0, .35);
+      border: 4px solid rgba(255, 255, 255, .07);
+      border-radius: 12px;
+      padding: 2rem;
+      overflow-y: auto;
+      backdrop-filter: blur(12px);
+      line-height: 1.8;
+      font-size: 1rem
+    }
+
+    .output-container h2 {
+      color: #6fa8dc;
+      margin: 0 0 .6em
+    }
+
+    .output-container ol {
+      padding-right: 1.4em;
+      margin: .5em 0
+    }
+
+    .output-container li {
+      margin-bottom: .45em
+    }
+
+    .reset-btn {
+      margin-top: 1.5rem
+    }
+
+    @media(max-width:768px) {
+      .roadmap-section {
+        padding-top: 7rem
+      }
     }
   </style>
 
-  <!-- Markdown -->
+
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
+
 <body>
   <div class="grid-background"></div>
   <div class="gradient-overlay"></div>
@@ -100,17 +213,18 @@
   </div>
 
   <section class="roadmap-section">
-    <!-- إدخال السؤال -->
+
     <form id="askForm" class="question-box" onsubmit="generateRoadmap(event)">
-      <input id="questionInput" type="text" placeholder="مثال: ما خطوات تأسيس شركة ذات مسؤولية محدودة؟" autocomplete="off" required />
+      <input id="questionInput" type="text" placeholder="مثال: ما خطوات تأسيس شركة ذات مسؤولية محدودة؟"
+        autocomplete="off" required />
       <button type="submit">إنشاء خارطة</button>
     </form>
 
-    <!-- الناتج -->
+
     <div id="output" class="output-container" style="display:none"></div>
 
-    <!-- زر إعادة -->
-    
+
+
   </section>
 
   <footer style="text-align:center;padding:1rem 0 .8rem;opacity:.7;font-size:.85rem">
@@ -132,32 +246,32 @@
          </div>`;
     }
 
-    async function generateRoadmap(e){
+    async function generateRoadmap(e) {
       e.preventDefault();
-      const q   = document.getElementById("questionInput").value.trim();
-      if(!q) return;
+      const q = document.getElementById("questionInput").value.trim();
+      if (!q) return;
 
       const out = document.getElementById("output");
       out.style.display = "block";
       showSpinner();
 
-      try{
-        const res = await fetch(`${API_BASE}/api/roadmap`,{
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
+      try {
+        const res = await fetch(`${API_BASE}/api/roadmap`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ question: q })
         });
-        if(!res.ok) throw new Error("network");
-        const {answer} = await res.json();
-        // إن كان المخرج Markdown
-        out.innerHTML = marked.parse(answer.replaceAll("```",""));
-        // إن كان المخرج HTML جاهز:
-        // out.innerHTML = answer;
-      }catch(err){
+        if (!res.ok) throw new Error("network");
+        const { answer } = await res.json();
+        
+        out.innerHTML = marked.parse(answer.replaceAll("```", ""));
+        
+      } catch (err) {
         out.textContent = "حدث خطأ، حاول مجددًا.";
         console.error(err);
       }
     }
   </script>
 </body>
+
 </html>

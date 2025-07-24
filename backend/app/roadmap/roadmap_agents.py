@@ -86,7 +86,7 @@ def _get_roadmap_agents(llm):
 
 
 def create_roadmap_crew(llm, question: str, context: str) -> Crew:
-    """يبني Crew مُكوَّنًا من ثلاثة وكلاء لإنتاج Roadmap."""
+   
     researcher, planner, reviewer = _get_roadmap_agents(llm)
 
     research_task = Task(

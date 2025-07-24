@@ -40,6 +40,10 @@ def get_agents(llm, user_question, extracted_chunks):
             "Each answer should include a direct response, followed by explanation and citations.\n"
             "Always reference the law name, article number/title, and include a VALID AND CORRECT source URL when available. "
             "If the content is vague, use your legal reasoning to formulate helpful answers based on principles."
+        "At the very end of every consultation, sign off with:\n\n"
+        "مع أطيب التحيات،\n"
+        "قانونيد"
+    
         ),
         llm=llm,
         allow_delegation=False

@@ -3,7 +3,7 @@ import json, pathlib, re
 from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
-from utils_scrape import SESSION, clean_text  # Cloudflare session
+from utils_scrape import SESSION, clean_text  
 
 def fetch_articles(law_id):
     url = f"https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/{law_id}/1"
@@ -25,12 +25,10 @@ def fetch_articles(law_id):
         title = title_elem.get_text(strip=True)
         content = content_elem.get_text(separator="\n", strip=True)
 
-        # Section titles (e.g., "الباب الأول")
         if re.match(r"^(الباب|الفصل)\s", title):
             current_part = title
             continue
 
-        # Amendments using data-articleid
         amendments = []
         amend_link = article.find("a", class_="ancArticlePrevVersions")
         if amend_link and amend_link.has_attr("data-articleid"):

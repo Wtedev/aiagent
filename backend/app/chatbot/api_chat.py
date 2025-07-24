@@ -12,18 +12,16 @@ class ChatResponse(BaseModel):
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(payload: ChatRequest):
-    """Return *one* complete answer for the given question."""
     try:
         answer = await run_chat(payload.question)
         return {"answer": answer}
-    except Exception as exc:  # pragma: no cover – generic fallback
+    except Exception as exc:  
         raise HTTPException(status_code=500, detail=str(exc))
 
 from fastapi.responses import StreamingResponse
 
 @router.get("/chat/stream")
 async def chat_stream(question: str):
-    """Stream the answer token‑by‑token using SSE."""
 
     async def event_generator():
         try:

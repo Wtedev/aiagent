@@ -17,7 +17,7 @@ LAWS_INDEX_PATH = "data/laws_index.json"
 VECTOR_DB_PATH = "data/law_vector_store"
 CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 200
-MAX_CHUNK_LENGTH = 4000  # ~1500 tokens
+MAX_CHUNK_LENGTH = 4000 
 
 # Initialize tools
 embedding_model = OpenAIEmbeddings(
@@ -40,7 +40,7 @@ for law in db["laws"]:
         if not content:
             continue
 
-        # ⬛ Main article chunks
+        
         metadata = {
             "law_id": law["law_id"],
             "law_name": law["name"],
@@ -54,10 +54,10 @@ for law in db["laws"]:
             if len(chunk.page_content) < MAX_CHUNK_LENGTH:
                 docs.append(chunk)
 
-        # 🟦 Amendments (if any)
+        
         for amendment in article.get("amendments", []) or []:
             amend_text = amendment.get("text", "")
-            amend_url = amendment.get("source_url", law["url"])  # fallback to law url
+            amend_url = amendment.get("source_url", law["url"]) 
 
             amend_metadata = {
                 "law_id": law["law_id"],
@@ -65,7 +65,7 @@ for law in db["laws"]:
                 "article_title": article.get("title", ""),
                 "part": article.get("part"),
                 "url": amend_url,
-                "is_amendment": True  # Helpful flag
+                "is_amendment": True 
             }
 
             amend_chunks = splitter.create_documents([amend_text], metadatas=[amend_metadata])
@@ -79,7 +79,6 @@ if not docs:
 print(f"🧠 Prepared {len(docs)} chunks . Generating embeddings...")
 
 
-# Split docs into safe batches
 def batch_chunks(lst, batch_size):
     for i in range(0, len(lst), batch_size):
         yield lst[i:i + batch_size]
@@ -95,7 +94,6 @@ for i, doc_batch in enumerate(batch_chunks(docs, 500)):
     else:
         all_vectors.merge_from(partial_vector)
 
-# Save final vector store
 all_vectors.save_local(VECTOR_DB_PATH)
 print(f"✅ FAISS vector store saved to {VECTOR_DB_PATH}")
 print(f"✅ FAISS vector store saved to {VECTOR_DB_PATH}")

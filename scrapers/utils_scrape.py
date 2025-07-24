@@ -23,13 +23,12 @@ from requests.adapters import HTTPAdapter, Retry
 from bs4 import BeautifulSoup
 
 
-# ──────────────────────────────── 1. جلسة HTTP ────────────────────────────────
 def _make_session() -> cloudscraper.CloudScraper:
     """تهيئة CloudScraper مع سياسة إعادة المحاولة."""
     sess = cloudscraper.create_scraper()
     retry_strategy = Retry(
-        total=5,                        # إجمالي المحاولات
-        backoff_factor=2,               # 0→2→4→8→16 ثانية
+        total=5,                   
+        backoff_factor=2,               
         status_forcelist=[429, 502, 503, 504],
         allowed_methods=["GET"],
         raise_on_status=False,
@@ -43,7 +42,6 @@ def _make_session() -> cloudscraper.CloudScraper:
 SESSION = _make_session()
 
 
-# ───────────────────────────── 2. أدوات مساعدة بسيطة ─────────────────────────
 def extract_urls(text: str) -> List[str]:
     """استخراج كل روابط http/https من نص."""
     return re.findall(r"https?://[^\s)>\]\"'<>]+", text)
@@ -56,7 +54,6 @@ def clean_text(text: str) -> str:
     return text
 
 
-# ───────────────────────────── 3. جلب HTML خام ───────────────────────────────
 def fetch_html(url: str, *, timeout: int = 60) -> str:
     """
     جلب الصفحة مع مهلة 60 ثانية (افتراضيًا).  

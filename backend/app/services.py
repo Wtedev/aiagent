@@ -42,13 +42,13 @@ async def run_chat(question: str, k: int = 20) -> str:
     if isinstance(result, str):
         return result
     if hasattr(result, "raw"):
-        return result.raw                       # CrewOutput.raw
+        return result.raw                      
 
     if isinstance(result, list) and result:
         last = result[-1]
         return getattr(last, "raw", str(last))
 
-    # fallback أخير
+   
     return result.raw.strip()
 async def run_chat_stream(question: str, k: int = 20):
 
