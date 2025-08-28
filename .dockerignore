@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+*.sqlite3
+
+# Data files (will be mounted as volume)
+data/law_vector_store/
+*.faiss
+*.pkl
+
+# Temporary files
+*.tmp
+*.temp
