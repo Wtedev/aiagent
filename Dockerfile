@@ -16,10 +16,15 @@ COPY Requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r Requirements.txt
 
-# Copy application code
-COPY . .
+# Copy application code (excluding data files)
+COPY backend/ ./backend/
+COPY embeddings/ ./embeddings/
+COPY pages/ ./pages/
+COPY Style/ ./Style/
+COPY scrapers/ ./scrapers/
+COPY main_app.py ./
 
-# Create data directory
+# Create data directory for volume mounting
 RUN mkdir -p /app/data
 
 # Set environment variables

@@ -1,0 +1,29 @@
+# Large data files that will be mounted via Railway volume
+data/laws_index.json
+data/cases.jsonl
+data/legal_sources.txt
+data/law_vector_store/
+
+# Git and cache files
+.git/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
