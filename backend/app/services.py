@@ -20,11 +20,19 @@ llm = ChatOpenAI(
 ) 
 
 embedding_model = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
-vector_db = FAISS.load_local(
-    VECTOR_STORE_PATH,
-    embeddings=embedding_model,
-    allow_dangerous_deserialization=True
-)
+
+# Lazy loading of FAISS vector store to reduce memory usage
+_vector_db = None
+
+def get_vector_db():
+    global _vector_db
+    if _vector_db is None:
+        _vector_db = FAISS.load_local(
+            VECTOR_STORE_PATH,
+            embeddings=embedding_model,
+            allow_dangerous_deserialization=True
+        )
+    return _vector_db
 
 _executor = ThreadPoolExecutor(max_workers=4)
 
@@ -32,6 +40,7 @@ _executor = ThreadPoolExecutor(max_workers=4)
 # --------------------------------------------------------
 
 async def run_chat(question: str, k: int = 20) -> str:
+    vector_db = get_vector_db()
     docs = vector_db.similarity_search(question, k=k)
     crew = create_crew(llm, question, docs)
 
@@ -50,21 +59,16 @@ async def run_chat(question: str, k: int = 20) -> str:
 
     # fallback أخير
     return result.raw.strip()
-async def run_chat_stream(question: str, k: int = 20):
-
-    docs = vector_db.similarity_search(question, k=k)
-    crew = create_crew(llm, question, docs)
-
-    answer = await run_chat(question, k)
-    yield answer
 
 async def run_chat_stream(question: str, k: int = 20):
+    vector_db = get_vector_db()
     docs = vector_db.similarity_search(question, k=k)
     crew = create_crew(llm, question, docs)
     answer = await run_chat(question, k)
     yield answer
 
 async def run_roadmap(question: str, k: int = 20) -> str:
+    vector_db = get_vector_db()
     docs = vector_db.similarity_search(question, k=k)
     crew = create_roadmap_crew(llm, question, docs)
 

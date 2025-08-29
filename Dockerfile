@@ -1,4 +1,4 @@
-# Production Dockerfile for Render deployment
+# Production Dockerfile for Railway deployment
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -32,14 +32,13 @@ RUN mkdir -p /app/data && \
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV VECTOR_STORE_PATH=data/law_vector_store
-ENV PORT=8000
 
-# Expose port
-EXPOSE 8000
+# Railway will provide PORT environment variable
+EXPOSE $PORT
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:$PORT/health || exit 1
 
-# Start command for production
-CMD ["python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+# Start command for Railway
+CMD ["python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "$PORT", "--workers", "1"]
