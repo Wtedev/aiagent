@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from backend.app.virtual.openSdkv2 import run_virtual_agents
+from backend.app.virtual.openSdk import run_virtual_agents
 
 app = FastAPI()
 
