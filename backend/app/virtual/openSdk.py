@@ -177,9 +177,32 @@ def run_virtual_agents(user_query: str):
         if not judgment:
             return {"error": "Failed to generate judgment"}
         
+        # 🚨 FIX: Create proper similar_cases with summaries (EXACTLY as in test.py)
+        similar_cases_with_summaries = []
+        for case in matched_cases:
+            case_id = case.get('case_id', 'N/A')
+            # Find the full case data from database
+            full_case = next((c for c in database if str(c.get('case_id')) == str(case_id)), None)
+            
+            if full_case:
+                summary = full_case.get('summaryOfCase', 'لا يوجد ملخص متاح')
+                # Create summary like in test.py
+                case_summary = f"{summary[:50]}{'...' if len(summary) > 50 else ''}"
+                similar_cases_with_summaries.append({
+                    "case_id": case_id,
+                    "summary": case_summary,
+                    "PointOfSimilarity": case.get('PointOfSimilarity', 'غير محدد')
+                })
+            else:
+                similar_cases_with_summaries.append({
+                    "case_id": case_id,
+                    "summary": "لا يوجد ملخص متاح",
+                    "PointOfSimilarity": case.get('PointOfSimilarity', 'غير محدد')
+                })
+        
         # Return the complete result (same structure as test.py)
         return {
-            "similar_cases": matched_cases,
+            "similar_cases": similar_cases_with_summaries,
             "Source": judgment.get("Source", ""),
             "predicted_judgment": judgment.get("predicted_judgment", "")
         }

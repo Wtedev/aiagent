@@ -42,24 +42,32 @@ _executor = ThreadPoolExecutor(max_workers=4)
 # --------------------------------------------------------
 
 async def run_chat(question: str, k: int = 20) -> str:
-    vector_db = get_vector_db()  # Lazy load when needed
-    docs = vector_db.similarity_search(question, k=k)
-    crew = create_crew(llm, question, docs)
+    try:
+        vector_db = get_vector_db()  # Lazy load when needed
+        docs = vector_db.similarity_search(question, k=k)
+        crew = create_crew(llm, question, docs)
 
-    loop = asyncio.get_event_loop()
-    result = await loop.run_in_executor(_executor, crew.kickoff)
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(_executor, crew.kickoff)
 
-    if isinstance(result, str):
-        return result
-    if hasattr(result, "raw"):
-        return result.raw                       # CrewOutput.raw
+        if isinstance(result, str):
+            return result
+        if hasattr(result, "raw"):
+            return result.raw                       # CrewOutput.raw
 
-    if isinstance(result, list) and result:
-        last = result[-1]
-        return getattr(last, "raw", str(last))
+        if isinstance(result, list) and result:
+            last = result[-1]
+            return getattr(last, "raw", str(last))
 
-    # fallback أخير
-    return result.raw.strip()
+        # fallback أخير
+        if hasattr(result, "raw"):
+            return result.raw.strip()
+        else:
+            return str(result)
+            
+    except Exception as e:
+        print(f"Error in run_chat: {e}")
+        return f"عذراً، حدث خطأ أثناء معالجة سؤالك: {str(e)}"
 
 async def run_chat_stream(question: str, k: int = 20):
     vector_db = get_vector_db()  # Lazy load when needed
