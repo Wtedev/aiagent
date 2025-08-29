@@ -310,7 +310,7 @@
 
   <div class="top-bar">
     <span class="top-title">القاضي الافتراضي</span>
-    <a href="index.html" class="back-btn">العودة إلى الصفحة الرئيسية</a>
+    <a href="../index.html" class="back-btn">العودة إلى الصفحة الرئيسية</a>
   </div>
 
   <section class="chat-section">
@@ -332,74 +332,75 @@
 
   <script>
     async function sendMessage(event) {
-  event.preventDefault();
+      event.preventDefault();
 
-  const input = document.getElementById('userInput');
-  const chatLog = document.getElementById('chatLog');
-  const userText = input.value.trim();
-  if (!userText) return;
+      const input = document.getElementById('userInput');
+      const chatLog = document.getElementById('chatLog');
+      const userText = input.value.trim();
+      if (!userText) return;
 
-  appendMessage('user', userText);
-  input.value = '';
+      appendMessage('user', userText);
+      input.value = '';
 
-  appendMessage('bot', '🔄 جاري تحليل القضية، يرجى الانتظار...');
+      appendMessage('bot', '🔄 جاري تحليل القضية، يرجى الانتظار...');
 
-  try {
-          const response = await fetch("https://ganonneed.onrender.com/virtual", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ user_query: userText })
-});
-const { result } = await response.json();
+      try {
+        const response = await fetch("https://ganonneed.onrender.com/virtual", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_query: userText })
+        });
+        const { result } = await response.json();
 
-  removeLastBotMessage();
+        removeLastBotMessage();
 
-// 1) القضايا المتشابهة
-if (result.similar_cases && result.similar_cases.length) {
-  let html = "## 🔍 القضايا المتشابهة\n";
-  result.similar_cases.forEach(c => {
-    html += `* **القضية #${c.case_id}**  \n`
-          + `  • التشابه: _${c.PointOfSimilarity || "غير محدد"}_  \n`
-          + `  • نبذة: ${c.summary}  \n`
-          + (c.ruling ? `  • الحكم: **${c.ruling}**  \n` : "")
-          + "\n";
-  });
-  appendMessage("bot", html);
-}
+        // 1) القضايا المتشابهة - EXACTLY as in test.py
+        if (result.similar_cases && result.similar_cases.length) {
+          let html = "## 🔍 القضايا المتشابهة\n";
+          result.similar_cases.forEach(c => {
+            html += `* **القضية #${c.case_id}**  \n`
+                  + `  • التشابه: _${c.PointOfSimilarity || "غير محدد"}_  \n`
+                  + `  • نبذة: ${c.summary}  \n`
+                  + (c.ruling ? `  • الحكم: **${c.ruling}**  \n` : "")
+                  + "\n";
+          });
+          appendMessage("bot", html);
+        }
 
-// 2) أساس الحكم
-if (result.Source) {
-  appendMessage("bot", `## 🧠 أساس الحكم\n${result.Source}`);
-}
+        // 2) أساس الحكم - EXACTLY as in test.py
+        if (result.Source) {
+          appendMessage("bot", `## 🧠 أساس الحكم\n${result.Source}`);
+        }
 
-// 3) الحكم النهائي
-if (result.predicted_judgment) {
-  appendMessage("bot", `## 📖 الحكم النهائي\n${result.predicted_judgment}`);
-} else {
-  appendMessage("bot", "لم يتم توليد الحكم.");
-}
+        // 3) الحكم النهائي - EXACTLY as in test.py
+        if (result.predicted_judgment) {
+          appendMessage("bot", `## 📖 الحكم النهائي\n${result.predicted_judgment}`);
+        } else {
+          appendMessage("bot", "لم يتم توليد الحكم.");
+        }
 
-} catch (error) {
-  removeLastBotMessage();
-  appendMessage('bot', '⚠️ فشل الاتصال بالسيرفر.');
-  console.error(error);
-}}
+      } catch (error) {
+        removeLastBotMessage();
+        appendMessage('bot', '⚠️ فشل الاتصال بالسيرفر.');
+        console.error(error);
+      }
+    }
 
-function appendMessage(type, text) {
-  const chatLog = document.getElementById('chatLog');
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add('message', type);
+    function appendMessage(type, text) {
+      const chatLog = document.getElementById('chatLog');
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message', type);
 
-  const bubbleDiv = document.createElement('div');
-  bubbleDiv.classList.add('bubble');
-  // Render Markdown!
-  bubbleDiv.innerHTML = marked.parse(text);
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.classList.add('bubble');
+      // Render Markdown! - EXACTLY as in test.py
+      bubbleDiv.innerHTML = marked.parse(text);
 
-  messageDiv.appendChild(bubbleDiv);
-  chatLog.appendChild(messageDiv);
+      messageDiv.appendChild(bubbleDiv);
+      chatLog.appendChild(messageDiv);
 
-  chatLog.scrollTop = chatLog.scrollHeight;
-}
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
 
     function removeLastBotMessage() {
       const chatLog = document.getElementById('chatLog');
