@@ -6,6 +6,11 @@ Run with:
 
 from __future__ import annotations
 import os
+import warnings
+
+# 🚨 SUPPRESS SWIG warnings from faiss-cpu
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="importlib._bootstrap")
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles

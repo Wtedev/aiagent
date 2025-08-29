@@ -2,6 +2,10 @@ from __future__ import annotations
 import os, functools, asyncio
 from concurrent.futures import ThreadPoolExecutor
 import gc
+import warnings
+
+# 🚨 SUPPRESS SWIG warnings from faiss-cpu
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="importlib._bootstrap")
 
 from backend.app.roadmap.roadmap_agents import create_roadmap_crew
 from dotenv import load_dotenv
