@@ -1,16 +1,23 @@
-from fastapi import APIRouter, Request
-from pydantic import BaseModel
-from backend.app.services import run_roadmap   
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, ConfigDict
 
-router = APIRouter(prefix="/api", tags=["roadmap"])
+from backend.app.services import run_roadmap
+
+router = APIRouter(tags=["roadmap"])
 
 class RoadmapRequest(BaseModel):
+    model_config = ConfigDict(extra='allow')  # 🚨 FIX: Use new Pydantic v2 syntax
     question: str
 
 class ChatResponse(BaseModel):
+    model_config = ConfigDict(extra='allow')  # 🚨 FIX: Use new Pydantic v2 syntax
     answer: str
 
 @router.post("/roadmap", response_model=ChatResponse)
-async def roadmap_endpoint(req: RoadmapRequest, request: Request):
-    answer = await run_roadmap(req.question)
-    return {"answer": answer}
+async def roadmap_endpoint(payload: RoadmapRequest):
+    """Return roadmap for the given question."""
+    try:
+        answer = await run_roadmap(payload.question)
+        return {"answer": answer}
+    except Exception as exc: # pragma: no cover – generic fallback
+        raise HTTPException(status_code=500, detail=str(exc))

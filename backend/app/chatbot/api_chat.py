@@ -1,13 +1,16 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from backend.app.services import run_chat, run_chat_stream
 
 router = APIRouter(tags=["chat"])
+
 class ChatRequest(BaseModel):
+    model_config = ConfigDict(extra='allow')  # 🚨 FIX: Use new Pydantic v2 syntax
     question: str
 
 class ChatResponse(BaseModel):
+    model_config = ConfigDict(extra='allow')  # 🚨 FIX: Use new Pydantic v2 syntax
     answer: str
 
 @router.post("/chat", response_model=ChatResponse)
@@ -16,7 +19,7 @@ async def chat_endpoint(payload: ChatRequest):
     try:
         answer = await run_chat(payload.question)
         return {"answer": answer}
-    except Exception as exc:  # pragma: no cover – generic fallback
+    except Exception as exc: # pragma: no cover – generic fallback
         raise HTTPException(status_code=500, detail=str(exc))
 
 from fastapi.responses import StreamingResponse

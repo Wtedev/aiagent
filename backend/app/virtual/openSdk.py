@@ -3,6 +3,7 @@ import openai
 import math
 import os
 from openai import OpenAI
+import gc
 
 # Load environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -66,7 +67,7 @@ agent_phase2 = """
 
 
 
-llm = OpenAI(api_key=OPENAI_API_KEY)
+llm = OpenAI(api_key=OPENAI_API_KEY or "")
 
 def fetch_openai_chat(context, input):
     response = llm.chat.completions.create(
@@ -156,8 +157,8 @@ def run_virtual_agents(user_query: str):
         # Initialize the model (same as test.py)
         model = init_model()
         
-        # Load the database (same as test.py)
-        database = load_database()
+        # Load the database (same as test.py) - 🚨 MEMORY OPTIMIZATION: Limit to 100 cases
+        database = load_database(max_items=100)
         
         if not database:
             return {"error": "Failed to load case database"}
@@ -200,6 +201,11 @@ def run_virtual_agents(user_query: str):
                     "PointOfSimilarity": case.get('PointOfSimilarity', 'غير محدد')
                 })
         
+        # 🚨 MEMORY OPTIMIZATION: Force cleanup
+        del database
+        del matched_cases
+        gc.collect()
+        
         # Return the complete result (same structure as test.py)
         return {
             "similar_cases": similar_cases_with_summaries,
@@ -209,6 +215,8 @@ def run_virtual_agents(user_query: str):
         
     except Exception as e:
         print(f"Error in run_virtual_agents: {e}")
+        # 🚨 MEMORY OPTIMIZATION: Force cleanup on error
+        gc.collect()
         return {"error": f"Failed to process request: {str(e)}"}
 
 

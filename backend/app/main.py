@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, RedirectResponse
 from dotenv import load_dotenv
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Any, Dict
 
 from backend.app.virtual.api_virtual import run_virtual_agents
@@ -92,6 +92,7 @@ async def serve_roadmap():
 
 # API Routes --------------------------------------------------------
 class VirtualRequest(BaseModel):
+    model_config = ConfigDict(extra='allow')  # 🚨 FIX: Use new Pydantic v2 syntax
     user_query: Any  
 
 @app.post("/api/virtual")
