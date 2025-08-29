@@ -6,10 +6,10 @@ Run with:
 
 from __future__ import annotations
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from typing import Any, Dict
@@ -67,6 +67,22 @@ async def serve_roadmap():
     """Serve the roadmap interface"""
     return FileResponse("Style/roadmap.html")
 
+# 🚨 DEBUG: Handle old .html paths with redirects
+@app.get("/chat.html")
+async def redirect_chat():
+    """Redirect old chat.html to /chat"""
+    return RedirectResponse(url="/chat", status_code=301)
+
+@app.get("/roadmap.html")
+async def redirect_roadmap():
+    """Redirect old roadmap.html to /roadmap"""
+    return RedirectResponse(url="/roadmap", status_code=301)
+
+@app.get("/virtual.html")
+async def redirect_virtual():
+    """Redirect old virtual.html to /virtual-ruling"""
+    return RedirectResponse(url="/virtual-ruling", status_code=301)
+
 # API Routes --------------------------------------------------------
 class VirtualRequest(BaseModel):
     user_query: Any  
@@ -86,6 +102,14 @@ app.include_router(roadmap_router)
 async def health() -> dict[str, str]:
     """Simple uptime probe for load balancers."""
     return {"status": "ok"}
+
+# 🚨 DEBUG: Catch-all route to see what's being requested
+@app.get("/{path:path}")
+async def catch_all(path: str, request: Request):
+    """Catch-all route to debug unknown paths"""
+    print(f"🚨 DEBUG: Unknown path requested: /{path}")
+    print(f"🚨 DEBUG: Full URL: {request.url}")
+    return {"error": f"Path /{path} not found", "debug_info": str(request.url)}
 
 # ------------------------------------------------------------------
 # Optional: run via `python -m app.main`
