@@ -1,8 +1,11 @@
 import json
 import openai
 import math
+import os
 from openai import OpenAI
 
+# Load environment variables
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def load_database(database_path: str="data/cases.jsonl", max_items: int=None):
     database = []
@@ -63,8 +66,8 @@ agent_phase2 = """
 
 
 
-llm = OpenAI(api_key=(""
-))
+llm = OpenAI(api_key=OPENAI_API_KEY)
+
 def fetch_openai_chat(context, input):
     response = llm.chat.completions.create(
         model="gpt-4o-mini",
@@ -140,6 +143,50 @@ def generate_final_judgment(final_stage_model, case_input, matched_cases):
     except Exception as e:
         print("Error judgment:", e)
         return None
+
+# 🚀 ADDING THE MISSING FUNCTION: run_virtual_agents
+def run_virtual_agents(user_query: str):
+    """
+    Main function to run the virtual ruling system - EXACTLY as in test.py
+    This function orchestrates the two-phase process:
+    1. Find similar cases
+    2. Generate final judgment
+    """
+    try:
+        # Initialize the model (same as test.py)
+        model = init_model()
+        
+        # Load the database (same as test.py)
+        database = load_database()
+        
+        if not database:
+            return {"error": "Failed to load case database"}
+        
+        # Phase 1: Find matching cases (same as test.py)
+        print("🔄 Searching for similar cases...")
+        matched_cases = find_matching_cases(model["phase1"], database, user_query)
+        
+        if not matched_cases:
+            return {"error": "No similar cases found"}
+        
+        # Phase 2: Generate final judgment (same as test.py)
+        print("⏳ Generating final judgment...")
+        case_input = {"description": user_query.strip()}
+        judgment = generate_final_judgment(model["phase2"], case_input, matched_cases)
+        
+        if not judgment:
+            return {"error": "Failed to generate judgment"}
+        
+        # Return the complete result (same structure as test.py)
+        return {
+            "similar_cases": matched_cases,
+            "Source": judgment.get("Source", ""),
+            "predicted_judgment": judgment.get("predicted_judgment", "")
+        }
+        
+    except Exception as e:
+        print(f"Error in run_virtual_agents: {e}")
+        return {"error": f"Failed to process request: {str(e)}"}
 
 
 
