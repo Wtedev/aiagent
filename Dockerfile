@@ -34,11 +34,11 @@ ENV PYTHONPATH=/app
 ENV VECTOR_STORE_PATH=data/law_vector_store
 
 # Railway will provide PORT environment variable
-EXPOSE $PORT
+EXPOSE 8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:$PORT/health || exit 1
+    CMD curl -f http://localhost:8000/health || exit 1
 
-# Start command for Railway
-CMD ["python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "$PORT", "--workers", "1"]
+# Start command for Railway - use shell to expand PORT variable
+CMD python -m uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1
