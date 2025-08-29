@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, ConfigDict
 from typing import Any, Dict
 
+from backend.app.roadmap.api_roadmap import router as roadmap_router
 from backend.app.virtual.api_virtual import run_virtual_agents
 
 load_dotenv()
@@ -48,8 +49,11 @@ app.mount("/Style", StaticFiles(directory="Style"), name="style")
 
 # Routers -----------------------------------------------------------
 from backend.app.chatbot.api_chat import router as chat_router
+from backend.app.roadmap.api_roadmap import router as roadmap_router
+from backend.app.virtual.api_virtual import run_virtual_agents
 
 app.include_router(chat_router, prefix="/api")
+app.include_router(roadmap_router)
 
 # 🚨 DEBUG: Handle old .html paths with redirects (MUST COME FIRST)
 @app.get("/chat.html")
@@ -105,9 +109,6 @@ async def virtual_consultation(req: VirtualRequest):
    
     result = run_virtual_agents(req.user_query)
     return {"result": result}
-
-from backend.app.roadmap.api_roadmap import router as roadmap_router
-app.include_router(roadmap_router)
 
 # Health‑check ------------------------------------------------------
 

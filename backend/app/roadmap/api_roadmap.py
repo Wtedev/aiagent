@@ -6,11 +6,11 @@ from backend.app.services import run_roadmap
 router = APIRouter(tags=["roadmap"])
 
 class RoadmapRequest(BaseModel):
-    model_config = ConfigDict(extra='allow')  # 🚨 FIX: Use new Pydantic v2 syntax
+    model_config = ConfigDict(extra='allow')  # Pydantic v2
     question: str
 
 class ChatResponse(BaseModel):
-    model_config = ConfigDict(extra='allow')  # 🚨 FIX: Use new Pydantic v2 syntax
+    model_config = ConfigDict(extra='allow')  # Pydantic v2
     answer: str
 
 @router.post("/roadmap", response_model=ChatResponse)
@@ -19,5 +19,5 @@ async def roadmap_endpoint(payload: RoadmapRequest):
     try:
         answer = await run_roadmap(payload.question)
         return {"answer": answer}
-    except Exception as exc: # pragma: no cover – generic fallback
+    except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))
