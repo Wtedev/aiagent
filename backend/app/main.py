@@ -46,42 +46,49 @@ from backend.app.chatbot.api_chat import router as chat_router
 
 app.include_router(chat_router, prefix="/api")
 
-# Frontend Routes ---------------------------------------------------
-@app.get("/")
-async def serve_homepage():
-    """Serve the main homepage"""
-    return FileResponse("Style/index.html")
-
-@app.get("/chat")
-async def serve_chat():
-    """Serve the chat interface"""
-    return FileResponse("Style/chat.html")
-
-@app.get("/virtual-ruling")
-async def serve_virtual():
-    """Serve the virtual ruling interface"""
-    return FileResponse("Style/virtual.html")
-
-@app.get("/roadmap")
-async def serve_roadmap():
-    """Serve the roadmap interface"""
-    return FileResponse("Style/roadmap.html")
-
-# 🚨 DEBUG: Handle old .html paths with redirects
+# 🚨 DEBUG: Handle old .html paths with redirects (MUST COME FIRST)
 @app.get("/chat.html")
 async def redirect_chat():
     """Redirect old chat.html to /chat"""
+    print("🚨 DEBUG: Redirecting /chat.html to /chat")
     return RedirectResponse(url="/chat", status_code=301)
 
 @app.get("/roadmap.html")
 async def redirect_roadmap():
     """Redirect old roadmap.html to /roadmap"""
+    print("🚨 DEBUG: Redirecting /roadmap.html to /roadmap")
     return RedirectResponse(url="/roadmap", status_code=301)
 
 @app.get("/virtual.html")
 async def redirect_virtual():
     """Redirect old virtual.html to /virtual-ruling"""
+    print("🚨 DEBUG: Redirecting /virtual.html to /virtual-ruling")
     return RedirectResponse(url="/virtual-ruling", status_code=301)
+
+# Frontend Routes ---------------------------------------------------
+@app.get("/")
+async def serve_homepage():
+    """Serve the main homepage"""
+    print("🚨 DEBUG: Serving homepage /")
+    return FileResponse("Style/index.html")
+
+@app.get("/chat")
+async def serve_chat():
+    """Serve the chat interface"""
+    print("🚨 DEBUG: Serving chat interface /chat")
+    return FileResponse("Style/chat.html")
+
+@app.get("/virtual-ruling")
+async def serve_virtual():
+    """Serve the virtual ruling interface"""
+    print("🚨 DEBUG: Serving virtual ruling /virtual-ruling")
+    return FileResponse("Style/virtual.html")
+
+@app.get("/roadmap")
+async def serve_roadmap():
+    """Serve the roadmap interface"""
+    print("🚨 DEBUG: Serving roadmap /roadmap")
+    return FileResponse("Style/roadmap.html")
 
 # API Routes --------------------------------------------------------
 class VirtualRequest(BaseModel):
@@ -103,12 +110,13 @@ async def health() -> dict[str, str]:
     """Simple uptime probe for load balancers."""
     return {"status": "ok"}
 
-# 🚨 DEBUG: Catch-all route to see what's being requested
+# 🚨 DEBUG: Catch-all route to see what's being requested (MUST COME LAST)
 @app.get("/{path:path}")
 async def catch_all(path: str, request: Request):
     """Catch-all route to debug unknown paths"""
     print(f"🚨 DEBUG: Unknown path requested: /{path}")
     print(f"🚨 DEBUG: Full URL: {request.url}")
+    print(f"🚨 DEBUG: Method: {request.method}")
     return {"error": f"Path /{path} not found", "debug_info": str(request.url)}
 
 # ------------------------------------------------------------------
