@@ -1,56 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المستشار القانوني الذكي - Legal AI Agent</title>
-    <link rel="stylesheet" href="Style/custom.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <header class="hero">
-            <h1 class="main-title">🤖 المستشار القانوني الذكي</h1>
-            <p class="subtitle">نظام ذكي لتحليل القضايا القانونية السعودية</p>
-        </header>
-
-        <div class="services-grid">
-            <div class="service-card" onclick="window.location.href='Style/chat.html'">
-                <div class="service-icon">💬</div>
-                <h3>بوت المحادثة القانونية</h3>
-                <p>احصل على إجابات فورية لأسئلتك القانونية</p>
-                <button class="service-btn">ابدأ المحادثة</button>
-            </div>
-
-            <div class="service-card" onclick="window.location.href='Style/virtual.html'">
-                <div class="service-icon">⚖️</div>
-                <h3>بوت الحكم الافتراضي</h3>
-                <p>احصل على تحليل شامل لقضيتك وحكم افتراضي مبني على السوابق القضائية</p>
-                <button class="service-btn">احصل على حكم لقضيتك</button>
-            </div>
-
-            <div class="service-card" onclick="window.location.href='Style/roadmap.html'">
-                <div class="service-icon">🗺️</div>
-                <h3>خارطة الطريق القانونية</h3>
-                <p>احصل على خطة مفصلة لمسار قضيتك القانونية</p>
-                <button class="service-btn">ابدأ الخارطة</button>
-            </div>
-        </div>
-
-        <footer class="footer">
-            <p>© 2025 المستشار القانوني الذكي - جميع الحقوق محفوظة</p>
-        </footer>
-    </div>
-
-    <script>
-        // Add smooth animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.service-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.classList.add('fade-in');
-            });
-        });
-    </script>
-</body>
-</html>
