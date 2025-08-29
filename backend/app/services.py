@@ -20,21 +20,31 @@ llm = ChatOpenAI(
 ) 
 
 embedding_model = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
-vector_db = FAISS.load_local(
-    VECTOR_STORE_PATH,
-    embeddings=embedding_model,
-    allow_dangerous_deserialization=True
-)
+
+# 🚀 MEMORY OPTIMIZATION: Lazy loading for FAISS
+_vector_db = None
+
+def get_vector_db():
+    """Lazy load FAISS vector store to reduce memory usage at startup"""
+    global _vector_db
+    if _vector_db is None:
+        print("🔄 Loading FAISS vector store...")
+        _vector_db = FAISS.load_local(
+            VECTOR_STORE_PATH,
+            embeddings=embedding_model,
+            allow_dangerous_deserialization=True
+        )
+        print("✅ FAISS vector store loaded successfully")
+    return _vector_db
 
 _executor = ThreadPoolExecutor(max_workers=4)
-
 
 # --------------------------------------------------------
 
 async def run_chat(question: str, k: int = 20) -> str:
+    vector_db = get_vector_db()  # Lazy load when needed
     docs = vector_db.similarity_search(question, k=k)
     crew = create_crew(llm, question, docs)
-
 
     loop = asyncio.get_event_loop()
     result = await loop.run_in_executor(_executor, crew.kickoff)
@@ -50,22 +60,16 @@ async def run_chat(question: str, k: int = 20) -> str:
 
     # fallback أخير
     return result.raw.strip()
-async def run_chat_stream(question: str, k: int = 20):
-
-    docs = vector_db.similarity_search(question, k=k)
-    crew = create_crew(llm, question, docs)
-
-    answer = await run_chat(question, k)
-    yield answer
 
 async def run_chat_stream(question: str, k: int = 20):
+    vector_db = get_vector_db()  # Lazy load when needed
     docs = vector_db.similarity_search(question, k=k)
     crew = create_crew(llm, question, docs)
     answer = await run_chat(question, k)
     yield answer
 
 async def run_roadmap(question: str, k: int = 20) -> str:
-    vector_db = get_vector_db()
+    vector_db = get_vector_db()  # Lazy load when needed
     docs = vector_db.similarity_search(question, k=k)
     crew = create_roadmap_crew(llm, question, docs)
 

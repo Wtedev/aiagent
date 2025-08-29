@@ -1,17 +1,18 @@
-# 🚀 PRODUCTION DOCKERFILE FOR FLY.IO - CLEAN VERSION
-# This Dockerfile is designed to work with Fly.io deployment
-# No more $PORT issues - clean and simple
+# 🚀 PRODUCTION DOCKERFILE FOR RENDER - MEMORY OPTIMIZED
+# This Dockerfile is optimized to work within Render's 512MB free tier limit
+# Uses lazy loading and memory optimization techniques
 
 FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (minimal)
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     curl \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
 # Copy requirements and install Python dependencies
 COPY Requirements.txt .
@@ -36,6 +37,7 @@ RUN mkdir -p /app/data && \
 ENV PYTHONPATH=/app
 ENV VECTOR_STORE_PATH=data/law_vector_store
 ENV PORT=8000
+ENV PYTHONUNBUFFERED=1
 
 # Expose port
 EXPOSE 8000
@@ -44,5 +46,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
-# Start command for Fly.io
-CMD ["python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+# Start command with memory optimization
+CMD ["python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1", "--log-level", "info"]
