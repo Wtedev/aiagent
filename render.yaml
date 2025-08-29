@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: legal-ai-agent
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: VECTOR_STORE_PATH
+        value: data/law_vector_store
+      - key: CORS_ORIGINS
+        value: "*"
+    healthCheckPath: /health
+    autoDeploy: true
