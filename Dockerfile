@@ -1,7 +1,6 @@
-# 🚀 PRODUCTION DOCKERFILE FOR RAILWAY - UPDATED VERSION 2.0
-# This Dockerfile has been completely rewritten to fix the $PORT issue
-# Previous version had CMD with $PORT which caused errors
-# Current version: No CMD, let Railway handle startup through environment variables
+# 🚀 PRODUCTION DOCKERFILE FOR FLY.IO - CLEAN VERSION
+# This Dockerfile is designed to work with Fly.io deployment
+# No more $PORT issues - clean and simple
 
 FROM python:3.11-slim
 
@@ -36,13 +35,14 @@ RUN mkdir -p /app/data && \
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV VECTOR_STORE_PATH=data/law_vector_store
+ENV PORT=8000
 
-# Railway will provide PORT environment variable
+# Expose port
 EXPOSE 8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
-# 🚫 NO CMD - Railway must use environment variables for startup
-# This prevents the $PORT error that was causing crashes
+# Start command for Fly.io
+CMD ["python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
