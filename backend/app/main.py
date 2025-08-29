@@ -57,7 +57,7 @@ async def serve_chat():
     """Serve the chat interface"""
     return FileResponse("Style/chat.html")
 
-@app.get("/virtual")
+@app.get("/virtual-ruling")
 async def serve_virtual():
     """Serve the virtual ruling interface"""
     return FileResponse("Style/virtual.html")
@@ -71,7 +71,7 @@ async def serve_roadmap():
 class VirtualRequest(BaseModel):
     user_query: Any  
 
-@app.post("/virtual")
+@app.post("/api/virtual")
 async def virtual_consultation(req: VirtualRequest):
    
     result = run_virtual_agents(req.user_query)

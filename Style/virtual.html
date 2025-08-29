@@ -345,7 +345,7 @@
       appendMessage('bot', '🔄 جاري تحليل القضية، يرجى الانتظار...');
 
       try {
-        const response = await fetch("https://ganonneed.onrender.com/virtual", {
+        const response = await fetch("https://ganonneed.onrender.com/api/virtual", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ user_query: userText })
