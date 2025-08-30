@@ -53,7 +53,7 @@ from backend.app.roadmap.api_roadmap import router as roadmap_router
 from backend.app.virtual.api_virtual import run_virtual_agents
 
 app.include_router(chat_router, prefix="/api")
-app.include_router(roadmap_router)
+app.include_router(roadmap_router, prefix="/api")
 
 # 🚨 DEBUG: Handle old .html paths with redirects (MUST COME FIRST)
 @app.get("/chat.html")
