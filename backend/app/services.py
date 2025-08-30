@@ -26,21 +26,14 @@ llm = ChatOpenAI(
 
 embedding_model = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
 
-# 🚀 MEMORY OPTIMIZATION: Lazy loading for FAISS
-_vector_db = None
-
-def get_vector_db():
-    """Lazy load FAISS vector store to reduce memory usage at startup"""
-    global _vector_db
-    if _vector_db is None:
-        print("🔄 Loading FAISS vector store...")
-        _vector_db = FAISS.load_local(
-            VECTOR_STORE_PATH,
-            embeddings=embedding_model,
-            allow_dangerous_deserialization=True
-        )
-        print("✅ FAISS vector store loaded successfully")
-    return _vector_db
+# Load FAISS vector store directly
+print("🔄 Loading FAISS vector store...")
+vector_db = FAISS.load_local(
+    VECTOR_STORE_PATH,
+    embeddings=embedding_model,
+    allow_dangerous_deserialization=True
+)
+print("✅ FAISS vector store loaded successfully")
 
 _executor = ThreadPoolExecutor(max_workers=4)
 
@@ -48,7 +41,6 @@ _executor = ThreadPoolExecutor(max_workers=4)
 
 async def run_chat(question: str, k: int = 10) -> str:  # 🚨 REDUCE from k=20 to k=10
     try:
-        vector_db = get_vector_db()  # Lazy load when needed
         docs = vector_db.similarity_search(question, k=k)
         
         # 🚨 SIMPLIFIED: Use direct LLM instead of CrewAI to avoid errors
@@ -94,14 +86,12 @@ async def run_chat(question: str, k: int = 10) -> str:  # 🚨 REDUCE from k=20 
         gc.collect()
 
 async def run_chat_stream(question: str, k: int = 20):
-    vector_db = get_vector_db()  # Lazy load when needed
     docs = vector_db.similarity_search(question, k=k)
     crew = create_crew(llm, question, docs)
     answer = await run_chat(question, k)
     yield answer
 
 async def run_roadmap(question: str, k: int = 20) -> str:
-    vector_db = get_vector_db()  # Lazy load when needed
     docs = vector_db.similarity_search(question, k=k)
     crew = create_roadmap_crew(llm, question, docs)
 

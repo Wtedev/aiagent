@@ -13,8 +13,8 @@ if not api_key:
     raise EnvironmentError("❌ Missing OPENAI_API_KEY in .env")
 
 # Config
-LAWS_INDEX_PATH = "data/laws_index.json"
-VECTOR_DB_PATH = "data/law_vector_store"
+LAWS_INDEX_PATH = "../data/laws_index.json"
+VECTOR_DB_PATH = "../data/law_vector_store"
 CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 200
 MAX_CHUNK_LENGTH = 4000  # ~1500 tokens

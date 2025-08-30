@@ -1,15 +1,15 @@
 services:
   - type: web
     name: legal-ai-agent
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
+    env: python
+    plan: starter
+    buildCommand: |
+      pip install -r Requirements.txt
+      cd embeddings && python build_faiss.py
+    startCommand: |
+      python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: OPENAI_API_KEY
         sync: false
-      - key: VECTOR_STORE_PATH
-        value: data/law_vector_store
-      - key: CORS_ORIGINS
-        value: "*"
-    healthCheckPath: /health
-    autoDeploy: true
+      - key: PYTHON_VERSION
+        value: 3.10

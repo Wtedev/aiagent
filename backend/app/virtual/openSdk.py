@@ -94,7 +94,7 @@ def init_model():
 
 
 def find_matching_cases(initial_stage_model, case_data, query, batch_size=100, wait_timeout=3, progress=None):
-    matching_cases  = []
+    matching_cases = []
     total_batches = math.ceil(len(case_data) / batch_size)
 
     for i in range(total_batches):
@@ -116,7 +116,11 @@ def find_matching_cases(initial_stage_model, case_data, query, batch_size=100, w
         try:
             content = fetch_openai_chat(initial_stage_model["system"], user_input)
             content = content.replace("```json", "").replace("```", "").strip()
-            matching_cases  += json.loads(content)
+            parsed_content = json.loads(content)
+            if isinstance(parsed_content, list):
+                matching_cases.extend(parsed_content)
+            else:
+                print(f"Unexpected response format: {type(parsed_content)}")
         except Exception as e:
             print("Error response:", e)
         if progress:
@@ -168,7 +172,12 @@ def run_virtual_agents(user_query: str):
         matched_cases = find_matching_cases(model["phase1"], database, user_query)
         
         if not matched_cases:
-            return {"error": "No similar cases found"}
+            # Return a default response when no similar cases are found
+            return {
+                "similar_cases": [],
+                "Source": "نظرًا لعدم وجود قضايا مشابهة، تم الاعتماد على القواعد العامة في الفقه الإسلامي والنظام السعودي في إصدار الحكم.",
+                "predicted_judgment": "الحمد لله وحده، والصلاة والسلام على من لا نبي بعده، وبعد:\n\nبناءً على ما تقدم من تفاصيل القضية، وحيث إنه لم يتم العثور على قضايا مشابهة في قاعدة البيانات، فإنني أقرر ما يلي:\n\nأولًا: يتم تطبيق القواعد العامة في الفقه الإسلامي والنظام السعودي على هذه القضية.\n\nثانيًا: يجب على الأطراف المتنازعة تقديم الأدلة والوثائق اللازمة لدعم موقفهم.\n\nثالثًا: يتم إحالة القضية إلى المحكمة المختصة للنظر فيها وإصدار الحكم المناسب.\n\nوالله الموفق، وصلى الله على نبينا محمد وعلى آله وصحبه وسلم أجمعين."
+            }
         
         # Phase 2: Generate final judgment (same as test.py)
         print("⏳ Generating final judgment...")

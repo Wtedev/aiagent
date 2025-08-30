@@ -74,7 +74,7 @@ def extract_metadata(soup):
 
     return meta
 
-def read_sources(path="data/legal_sources.txt") -> list[dict]:
+def read_sources(path="../data/legal_sources_small.txt") -> list[dict]:
     sources = []
     with open(path, encoding="utf8") as f:
         for line in f:
@@ -107,7 +107,7 @@ def main():
         law["articles"] = fetch_articles(law["law_id"])
         final_data.append(law)
 
-    out_path = pathlib.Path("data/laws_index.json")
+    out_path = pathlib.Path("../data/laws_index.json")
     out_path.write_text(json.dumps({
         "generated_at": datetime.now().isoformat(),
         "laws": final_data
